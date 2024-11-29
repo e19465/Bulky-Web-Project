@@ -36,4 +36,4 @@ To run this project locally, you need the following tools:
 1. Clone the repository:
 
    ```bash
-   git clone [https://github.com/e19465/bulky-web](https://github.com/e19465/Bulky-Web-Project).git
+   git clone https://github.com/e19465/Bulky-Web-Project.git
