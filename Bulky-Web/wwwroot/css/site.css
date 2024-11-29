@@ -1,3 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+    font-family: 'Varela Round';
+    src: url('/fonts/VarelaRound.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.varela-round-font {
+    font-family: "Varela Round", sans-serif;
+}

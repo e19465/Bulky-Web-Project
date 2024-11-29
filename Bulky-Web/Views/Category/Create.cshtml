@@ -1,0 +1,29 @@
+﻿@model Category
+
+<div class="flex h-auto w-full items-center justify-center p-8 text-sm">
+	<form method="post" class="flex w-full flex-col items-center justify-center gap-4 rounded-md p-8 md:w-3/4 lg:w-1/2">
+		<div class="w-full border-b border-black pb-2 text-left uppercase">
+			<span class="font-semibold">create category</span>
+		</div>
+		<div class="flex w-full flex-col gap-2">
+			<label asp-for="Name" class="pl-4 font-semibold"></label>
+			<input asp-for="Name" class="w-full rounded-md border border-black px-4 py-2" id="cat-name-inp" required placeholder="Enter category name here..." />
+			<span asp-validation-for="Name" class="text-red-800"></span>
+		</div>
+		<div class="flex w-full flex-col gap-2">
+			<label asp-for="DisplayOrder" class="pl-4 font-semibold"></label>
+			<input asp-for="DisplayOrder" required class="w-full rounded-md border border-black px-4 py-2" id="cat-name-inp" placeholder="Enter display order here..." />
+			<span asp-validation-for="DisplayOrder" class="text-red-800"></span>
+		</div>
+		<div class="flex h-auto w-full flex-col gap-4 md:flex-row">
+			<button class="flex w-full items-center justify-center rounded-md bg-black py-2 uppercase text-white md:w-1/2" type="submit">create</button>
+			<a asp-controller="Category" asp-action="Index" class="flex w-full items-center justify-center rounded-md border border-black bg-slate-200 p-1 py-2 uppercase text-black md:w-1/2">back to list</a>
+		</div>
+	</form>
+</div>
+
+@section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+}

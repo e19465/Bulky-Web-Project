@@ -1,7 +1,12 @@
+using Bulky_Web.Extensions;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+// Inject DbContext
+builder.Services.InjectDbContext(builder.Configuration);
 
 var app = builder.Build();
 
@@ -14,10 +19,9 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.ConfigureCORS(builder.Configuration);
 app.UseStaticFiles();
-
 app.UseRouting();
-
 app.UseAuthorization();
 
 app.MapControllerRoute(
