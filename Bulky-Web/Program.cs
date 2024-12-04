@@ -5,20 +5,27 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-// Inject DbContext
-builder.Services.InjectDbContext(builder.Configuration);
+// Inject custom extensions
+builder.Services.InjectDbContext(builder.Configuration)
+				.InjectServiceScopes();
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
+if (builder.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
+	app.UseDeveloperExceptionPage();
+	// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+	app.UseHsts();
+}
+else
+{
+	app.UseExceptionHandler("/Home/Error/");
 }
 
+
 app.UseHttpsRedirection();
+app.UseStatusCodePagesWithReExecute("/StatusCodeError/{0}");
 app.ConfigureCORS(builder.Configuration);
 app.UseStaticFiles();
 app.UseRouting();

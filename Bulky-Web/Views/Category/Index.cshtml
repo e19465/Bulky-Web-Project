@@ -1,57 +1,55 @@
 ﻿@model Category
 
 @{
-    ViewData["Title"] = "Categories List";
     var categories = ViewBag.Categories as List<Category>;
 }
 
-<div class="flex flex-col items-center p-4">
-    <div class="mb-4 flex w-full flex-col items-center justify-center px-12 md:flex-row md:justify-between">
-        <p class="text-2xl font-bold uppercase">@ViewData["Title"]</p>
-        <span class="flex items-center justify-center gap-2 rounded-md bg-black px-8 py-2 shadow-md">
+<div class="mt-[50px] flex w-full flex-col items-center p-4">
+    <div class="black-ash-gradient flex w-full flex-col items-center justify-center rounded-t-md px-8 py-3 md:w-3/4 md:flex-row md:justify-between">
+        <p class="tracking-[2px] text-xl font-bold uppercase text-white">@ViewData["Title"]</p>
+        <a asp-controller="Category" asp-action="Create" class="flex items-center justify-center gap-2 rounded-md bg-black px-8 py-2 shadow-md">
             <i class="fas fa-plus-circle text-white"></i>
-            <a asp-controller="Category" asp-action="Create" class="tracking-[2px] text-sm font-semibold uppercase text-white no-underline">create category</a>
-        </span>
+            <span class="tracking-[2px] text-sm font-semibold uppercase text-white no-underline">create category</span>
+        </a>
     </div>
-    <table class="w-full table-auto border-collapse border border-gray-300">
+    
+    <table class="w-full table-auto border-collapse border border-gray-300 md:w-3/4">
         <thead>
-            <tr class="tracking-[2px] bg-gray-100 uppercase text-black">
-                <th class="border border-gray-300 px-4 py-2 text-left">ID</th>
-                <th class="border border-gray-300 px-4 py-2 text-left">Name</th>
-                <th class="border border-gray-300 px-4 py-2 text-left">Display Order</th>
-                <th class="border border-gray-300 px-4 py-2 text-left">Actions</th>
+            <tr class="tracking-[2px] bg-gray-100 text-xs uppercase text-black md:text-sm">
+                <th class="border border-gray-300 px-4 py-2 text-left md:pl-12">ID</th>
+                <th class="border border-gray-300 px-4 py-2 text-left md:pl-12">Name</th>
+                <th class="border border-gray-300 px-4 py-2 text-left md:pl-12">Display Order</th>
+                <th class="border border-gray-300 px-4 py-2 text-left md:pl-12">Actions</th>
             </tr>
         </thead>
         <tbody>
             @if (categories != null && categories.Count > 0)
             {
-                int index = 1;
                 foreach (var category in categories)
                 {
-                    <tr class="text-sm even:bg-gray-50">
-                        <td class="border border-gray-300 px-4 py-2">@category.Id</td>
-                        <td class="border border-gray-300 px-4 py-2 capitalize">@category.Name</td>
-                        <td class="border border-gray-300 px-4 py-2">@category.DisplayOrder</td>
-                        <td class="border border-gray-300 px-4 py-2">
-							<div class="flex h-full w-full items-center justify-start gap-2">
-                                <span class="flex items-center justify-center gap-2 rounded-md bg-sky-700 px-4 py-2 shadow-md">
+                    <tr class="w-full text-xs even:bg-gray-50 md:text-sm">
+                        <td class="border border-gray-300 px-4 py-2 text-left md:pl-12">@category.Id</td>
+                        <td class="border border-gray-300 px-4 py-2 text-left md:pl-12">@category.Name</td>
+                        <td class="border border-gray-300 px-4 py-2 text-left md:pl-12">@category.DisplayOrder</td>
+                        <td class="border border-gray-300 px-4 py-2 text-left md:pl-12">
+                            <div class="flex flex-wrap items-center justify-start gap-2">
+                                <a asp-controller="Category" asp-action="Update" asp-route-id="@category.Id" class="black-ash-gradient flex items-center justify-center gap-2 rounded-md px-8 py-2">
                                     <i class="fa-regular fa-pen-to-square text-white"></i>
-                                    <a asp-controller="Category" asp-action="Edit" asp-route-id="@category.Id" class="text-white">Edit</a>
-                                </span>
-                                <span class="flex items-center justify-center gap-2 rounded-md bg-red-700 px-4 py-2 shadow-md">
+                                    <span  class="text-white">Edit</span>
+                                </a>
+                                <a asp-controller="Category" asp-action="Delete" asp-route-id="@category.Id" class="flex items-center justify-center gap-2 rounded-md bg-red-700 px-8 py-2 shadow-md">
                                     <i class="fa-solid fa-trash-can text-white"></i>
-                                    <a asp-controller="Category" asp-action="Delete" asp-route-id="@category.Id" class="text-white">Delete</a>
-                                </span>
+                                    <span class="text-white">Delete</span>
+                                </a>
                             </div>
                         </td>
                     </tr>
-                    index++;
                 }
             }
             else
             {
                 <tr>
-                    <td colspan="3" class="border border-gray-300 px-4 py-2 text-center text-gray-500">
+                    <td colspan="4" class="border border-gray-300 px-4 py-2 text-center text-gray-500">
                         No categories available.
                     </td>
                 </tr>

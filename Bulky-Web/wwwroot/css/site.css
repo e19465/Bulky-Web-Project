@@ -2,6 +2,32 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+    /* colors */
+    --LINEAR-GRADIENT-BLACK: #000000; /* Black */
+    --LINEAR-GRADIENT-ASH: #5e5d5d; /* Ash gray */
+    --LINEAR-GRADIENT-DARK-ASH: #3e3d3d; /* Darker ash gray for mix */
+    --LINEAR-GRADIENT-LIGHT-BLUE: #a2d2ff; /* Soft light blue */
+    --LINEAR-GRADIENT-PASTEL-PURPLE: #cdb4db; /* Pastel purple */
+    --LINEAR-GRADIENT-LAVENDER: #e0aaff; /* Lavender */
+
+    /* linear gradient */
+    --BLACK-DARK-ASH-ASH-GRADIENT: linear-gradient(
+        to right, 
+        var(--LINEAR-GRADIENT-BLACK), 
+        var(--LINEAR-GRADIENT-DARK-ASH), 
+        var(--LINEAR-GRADIENT-ASH)
+    );
+
+    /* linear gradients */
+    --BLUE-PURPLE-LAVENDER-GRADIENT: linear-gradient(
+        to right, 
+        var(--LINEAR-GRADIENT-LIGHT-BLUE), 
+        var(--LINEAR-GRADIENT-PASTEL-PURPLE), 
+        var(--LINEAR-GRADIENT-LAVENDER)
+    );
+}
+
 @font-face {
     font-family: 'Varela Round';
     src: url('/fonts/VarelaRound.ttf') format('truetype');
@@ -11,4 +37,16 @@
 
 .varela-round-font {
     font-family: "Varela Round", sans-serif;
+}
+
+body {
+    font-family: 'Varela Round', sans-serif;
+}
+
+.black-ash-gradient {
+    background: var(--BLACK-DARK-ASH-ASH-GRADIENT);
+}
+
+.light-blue-purple-gradient {
+    background: var(--BLUE-PURPLE-LAVENDER-GRADIENT);
 }

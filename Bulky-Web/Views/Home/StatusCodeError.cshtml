@@ -1,0 +1,26 @@
+﻿@{
+	var statusCode = ViewBag.Status;
+	var errorMessage = ViewBag.ErrorMessage;
+}
+
+<div class="flex h-full w-full flex-col items-center justify-center gap-2 bg-gray-800 p-8 text-white">
+	<span>
+		<i class="fa-solid fa-triangle-exclamation text-[100px]"></i>
+	</span>
+	<h2 class="text-center text-5xl">
+		@if (statusCode != null)
+		{
+			<span>@statusCode</span>
+		}
+	</h2>
+	<p class="text-center text-xl text-red-500">
+		@if (errorMessage != null)
+		{
+			<span>@errorMessage</span>
+		}
+		else
+		{
+			<span>Something went wrong.</span>
+		}
+	</p>
+</div>

@@ -1,0 +1,29 @@
+﻿@model Category
+
+<div class="flex h-auto w-full items-center justify-center p-8 text-sm">
+	<form asp-action="Update" method="post" class="flex w-full flex-col items-center justify-center gap-4 rounded-md border border-gray-200 p-8 shadow-md md:w-3/4 lg:w-1/2" id="cat-edit-form">
+		<div class="black-ash-gradient flex w-full items-center justify-center rounded-md p-4 text-left uppercase shadow-md">
+			<span class="tracking-[2px] font-semibold text-white">edit category</span>
+		</div>
+		<div class="flex w-full flex-col gap-2">
+			<label asp-for="Name" class="pl-4 font-semibold"></label>
+			<input asp-for="Name" class="w-full rounded-md border border-black px-4 py-2" id="cat-name-inp-edit" required placeholder="Enter category name here..." />
+			<span asp-validation-for="Name" class="text-red-800"></span>
+		</div>
+		<div class="flex w-full flex-col gap-2">
+			<label asp-for="DisplayOrder" class="pl-4 font-semibold"></label>
+			<input asp-for="DisplayOrder" required class="w-full rounded-md border border-black px-4 py-2" id="cat-dis-order-inp-edit" placeholder="Enter display order here..." />
+			<span asp-validation-for="DisplayOrder" class="text-red-800"></span>
+		</div>
+		<div class="flex h-auto w-full flex-col gap-4 md:flex-row">
+			<button class="black-ash-gradient flex w-full items-center justify-center rounded-md py-2 uppercase text-white md:w-1/2" type="submit" id="cat-update-btn">update</button>
+			<a asp-controller="Category" asp-action="Index" class="flex w-full items-center justify-center rounded-md border border-black bg-slate-200 p-1 py-2 uppercase text-black md:w-1/2">back to list</a>
+		</div>
+	</form>
+</div>
+
+@section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+}

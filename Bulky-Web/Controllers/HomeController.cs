@@ -1,5 +1,5 @@
 using System.Diagnostics;
-using Bulky_Web.Models;
+using Bulky.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Bulky_Web.Controllers
@@ -23,10 +23,26 @@ namespace Bulky_Web.Controllers
             return View();
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
-    }
+
+		[Route("/Home/Error/")]
+		public IActionResult Error()
+		{
+			return View();
+		}
+
+		[Route("/StatusCodeError/{statusCode}")]
+		public IActionResult StatusCodeError(int statusCode)
+		{
+			ViewBag.Status = statusCode;
+			if (statusCode == 404)
+			{
+				ViewBag.ErrorMessage = "The page you are looking for does not exist.";
+			}
+			else
+			{
+				ViewBag.ErrorMessage = "An error occurred while processing your request.";
+			}
+			return View();
+		}
+	}
 }
