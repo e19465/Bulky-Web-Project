@@ -8,6 +8,7 @@ namespace Bulky_Web.Extensions
 		public static IServiceCollection InjectServiceScopes(this IServiceCollection services)
 		{
 			services.AddScoped<ICategoryRepository, CategoryRepository>();
+			services.AddScoped<IProductRepository, ProductRepository>();
 			return services;
 
 		}

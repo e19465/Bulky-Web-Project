@@ -24,7 +24,6 @@ namespace Bulky_Web.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            Console.WriteLine("Index Action");
             ViewData["Title"] = "Category List";
             try
             {
@@ -94,11 +93,15 @@ namespace Bulky_Web.Areas.Admin.Controllers
         /// <param name="id">The ID(Guid) of the category</param>
         /// <returns></returns>
         [HttpGet]
-        public IActionResult Update(int id)
+        public IActionResult Update(int? id)
         {
             ViewData["Title"] = "Update Category";
             try
             {
+                if (id == null)
+                {
+                    return RedirectToAction("Index");
+                }
                 Category? category = _categoryRepository.GetFirstOrDefault(c => c.Id == id);
                 if (category == null)
                 {

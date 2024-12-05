@@ -21,6 +21,10 @@
                 <div class="tracking-[2px] flex h-full items-center justify-center gap-3 font-semibold uppercase text-[12px]">
                     <a class="text-gray-400 transition-colors duration-200 hover:text-gray-100" asp-area="Customer" asp-controller="Home" asp-action="About">About</a>
 
+                    <a class="text-gray-400 transition-colors duration-200 hover:text-gray-100" asp-area="Customer" asp-controller="Home" asp-action="Privacy">Privacy</a>
+
+                    <a class="text-gray-400 transition-colors duration-200 hover:text-gray-100" asp-area="Customer" asp-controller="Home" asp-action="Contact">Contact</a>
+
                     <!--Drop down menu container-->
                     <div class="relative w-auto text-[12px]">
 
@@ -36,6 +40,9 @@
                             <ul class="p-2 text-gray-800" aria-labelledby="dropdownDefaultButton">
                                 <li class="flex w-full items-center justify-center hover:bg-gray-800">
                                     <a class="flex w-full items-center justify-center border-b border-b-gray-800 py-2 hover:text-gray-100" asp-area="Admin" asp-controller="Category" asp-action="Index">Category</a>
+                                </li>
+                                <li class="flex w-full items-center justify-center hover:bg-gray-800">
+                                    <a class="flex w-full items-center justify-center border-b border-b-gray-800 py-2 hover:text-gray-100" asp-area="Admin" asp-controller="Product" asp-action="Index">Product</a>
                                 </li>
                             </ul>
                         </div>

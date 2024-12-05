@@ -1,0 +1,65 @@
+﻿@model Product
+
+@{
+    var products = ViewBag.Products as List<Product> ?? new List<Product>();
+}
+
+<div class="mt-[50px] flex w-full flex-col items-center p-4">
+    <div class="black-ash-gradient flex w-full flex-col items-center justify-center rounded-t-md px-8 py-3 md:w-4/5 md:flex-row md:justify-between">
+        <p class="tracking-[2px] text-xl font-bold uppercase text-white">@ViewData["Title"]</p>
+        <a asp-area="Admin" asp-controller="Product" asp-action="Create" class="flex items-center justify-center gap-2 rounded-md bg-black px-8 py-2 shadow-md">
+            <i class="fas fa-plus-circle text-white"></i>
+            <span class="tracking-[2px] text-sm font-semibold uppercase text-white no-underline">create product</span>
+        </a>
+    </div>
+
+    <table class="w-full table-auto border-collapse border border-gray-300 md:w-4/5">
+        <thead>
+            <tr class="tracking-[2px] bg-gray-100 text-xs uppercase text-black md:text-sm">
+                <th class="border border-gray-300 px-4 py-2 text-left md:pl-12">ID</th>
+                <th class="border border-gray-300 px-4 py-2 text-left md:pl-12">Title</th>
+                <th class="border border-gray-300 px-4 py-2 text-left md:pl-12">ISBN</th>
+                <th class="border border-gray-300 px-4 py-2 text-left md:pl-12">Price</th>
+                <th class="border border-gray-300 px-4 py-2 text-left md:pl-12">Author</th>
+                <th class="border border-gray-300 px-4 py-2 text-left md:pl-12">Category</th>
+                <th class="border border-gray-300 px-4 py-2 text-left md:pl-12">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (products != null && products.Count > 0)
+            {
+                foreach (var product in products)
+                {
+                    <tr class="w-full text-xs even:bg-gray-50 md:text-sm">
+                        <td class="border border-gray-300 px-4 py-2 text-left md:pl-12">@product.Id</td>
+                        <td class="border border-gray-300 px-4 py-2 text-left md:pl-12">@product.Title</td>
+                        <td class="border border-gray-300 px-4 py-2 text-left md:pl-12">@product.Isbn</td>
+                        <td class="border border-gray-300 px-4 py-2 text-left md:pl-12">@product.Price</td>
+                        <td class="border border-gray-300 px-4 py-2 text-left md:pl-12">@product.Author</td>
+                        <td class="border border-gray-300 px-4 py-2 text-left md:pl-12">null</td>
+                        <td class="border border-gray-300 px-4 py-2 text-left md:pl-12">
+                            <div class="flex flex-wrap items-center justify-start gap-2">
+                                <a asp-area="Admin" asp-controller="Product" asp-action="Update" asp-route-id="@product.Id" class="black-ash-gradient flex items-center justify-center gap-2 rounded-md px-8 py-2">
+                                    <i class="fa-regular fa-pen-to-square text-white"></i>
+                                    <span  class="text-white">Update</span>
+                                </a>
+                                <a asp-area="Admin" asp-controller="Product" asp-action="Delete" asp-route-id="@product.Id" class="flex items-center justify-center gap-2 rounded-md bg-red-700 px-8 py-2 shadow-md">
+                                    <i class="fa-solid fa-trash-can text-white"></i>
+                                    <span class="text-white">Delete</span>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="4" class="border border-gray-300 px-4 py-2 text-center text-gray-500">
+                        No products available.
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

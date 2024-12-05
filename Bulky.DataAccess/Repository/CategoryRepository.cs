@@ -36,8 +36,8 @@ namespace Bulky.DataAccess.Repository
 		{
 			try
 			{
-				_dbContext.Update(category);
-			}
+				_dbContext.Categories.Update(category);
+            }
 			catch (Exception)
 			{
 				throw;

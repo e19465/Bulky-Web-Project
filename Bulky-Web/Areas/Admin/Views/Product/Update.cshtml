@@ -1,0 +1,78 @@
+﻿@model Product
+
+<div class="flex h-auto w-full items-center justify-center p-8 text-sm">
+	<form asp-action="Update" method="post" class="flex w-full flex-col items-center justify-center gap-4 rounded-md border border-gray-200 p-8 shadow-md md:w-3/4 lg:w-1/2" id="cat-edit-form">
+		<div class="black-ash-gradient flex w-full items-center justify-center rounded-md p-4 text-left uppercase shadow-md">
+			<span class="tracking-[2px] font-semibold text-white">edit product</span>
+		</div>
+
+		<!-- Product Title -->
+		<div class="flex w-full flex-col gap-2">
+			<label asp-for="Title" class="pl-4 font-semibold"></label>
+			<input asp-for="Title" class="w-full rounded-md border border-black px-4 py-2" id="prod-title-inp-update" required placeholder="Enter product title here..." />
+			<span asp-validation-for="Title" class="text-red-800"></span>
+		</div>
+
+		<!-- Product Description -->
+		<div class="flex w-full flex-col gap-2">
+			<label asp-for="Description" class="pl-4 font-semibold"></label>
+			<textarea asp-for="Description" class="h-[150px] w-full rounded-md border border-black px-4 py-2" id="prod-desc-inp-update" required placeholder="Enter product description here..."></textarea>
+			<span asp-validation-for="Description" class="text-red-800"></span>
+		</div>
+
+		<!-- Product Author -->
+		<div class="flex w-full flex-col gap-2">
+			<label asp-for="Author" class="pl-4 font-semibold"></label>
+			<input asp-for="Author" class="w-full rounded-md border border-black px-4 py-2" id="prod-author-inp-update" required placeholder="Enter author name here..." />
+			<span asp-validation-for="Author" class="text-red-800"></span>
+		</div>
+
+		<!-- Product ISBN -->
+		<div class="flex w-full flex-col gap-2">
+			<label asp-for="Isbn" class="pl-4 font-semibold"></label>
+			<input asp-for="Isbn" class="w-full rounded-md border border-black px-4 py-2" id="prod-isbn-inp-update" required placeholder="Enter product isbn here..." />
+			<span asp-validation-for="Isbn" class="text-red-800"></span>
+		</div>
+
+		<!-- Product Price -->
+		<div class="flex w-full flex-col gap-2">
+			<label asp-for="Price" class="pl-4 font-semibold"></label>
+			<input asp-for="Price" class="w-full rounded-md border border-black px-4 py-2" id="prod-price-inp-update" required placeholder="Enter product price here..." />
+			<span asp-validation-for="Price" class="text-red-800"></span>
+		</div>
+
+		<!-- Product ListPrice -->
+		<div class="flex w-full flex-col gap-2">
+			<label asp-for="ListPrice" class="pl-4 font-semibold"></label>
+			<input asp-for="ListPrice" class="w-full rounded-md border border-black px-4 py-2" id="prod-list-price-inp-update" required placeholder="Enter product list price here..." />
+			<span asp-validation-for="ListPrice" class="text-red-800"></span>
+		</div>
+
+
+		<!-- Product Price50 -->
+		<div class="flex w-full flex-col gap-2">
+			<label asp-for="Price50" class="pl-4 font-semibold"></label>
+			<input asp-for="Price50" class="w-full rounded-md border border-black px-4 py-2" id="prod-list-price-50-inp-update" required placeholder="Enter 50+ buy price here..." />
+			<span asp-validation-for="Price50" class="text-red-800"></span>
+		</div>
+
+		<!-- Product Price100 -->
+		<div class="flex w-full flex-col gap-2">
+			<label asp-for="Price100" class="pl-4 font-semibold"></label>
+			<input asp-for="Price100" class="w-full rounded-md border border-black px-4 py-2" id="prod-list-price-100-inp-update" required placeholder="Enter 100+ buy price here..." />
+			<span asp-validation-for="Price100" class="text-red-800"></span>
+		</div>
+
+		<!-- Update and back to list buttons -->
+		<div class="flex h-auto w-full flex-col gap-4 md:flex-row">
+			<button class="flex w-full items-center justify-center rounded-md bg-black py-2 uppercase text-white md:w-1/2" type="submit" id="prod-update-btn">update</button>
+			<a asp-area="Admin" asp-controller="Product" asp-action="Index" class="flex w-full items-center justify-center rounded-md border border-black bg-slate-200 p-1 py-2 uppercase text-black md:w-1/2">back to list</a>
+		</div>
+	</form>
+</div>
+
+@section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+}
