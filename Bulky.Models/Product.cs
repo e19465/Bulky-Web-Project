@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 
 namespace Bulky.Models
@@ -45,5 +46,17 @@ namespace Bulky.Models
         [Display(Name = "Price for 100+")]
         [Range(1, 5000, ErrorMessage = "Price for 100+ must be between 1$ - 5000$")]
         public required double Price100 { get; set; }
+
+        [Required(ErrorMessage = "Category is required")]
+        [Display(Name = "Category")]
+        [ForeignKey("Category")]
+        public required int CategoryId { get; set; }
+
+		[ValidateNever]
+		public required Category Category { get; set; }
+
+        [StringLength(400, ErrorMessage = "Maximum length for product image url is 200 characters.")]
+        [Display(Name = "Product Image")]
+        public string? ImageUrl { get; set; }
     }
 }

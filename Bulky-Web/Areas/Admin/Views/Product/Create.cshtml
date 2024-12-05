@@ -1,5 +1,9 @@
 ﻿@model Product
 
+@{
+	var categories = ViewBag.Categories as IEnumerable<SelectListItem> ?? new List<SelectListItem>();
+}
+
 <div class="flex h-auto w-full items-center justify-center p-8 text-sm">
 	<form asp-action="Create" method="post" class="flex w-full flex-col items-center justify-center gap-4 rounded-md border border-gray-200 p-8 shadow-md md:w-3/4 lg:w-1/2" id="cat-create-form">
 		<div class="black-ash-gradient flex w-full items-center justify-center rounded-md p-4 text-left uppercase text-black shadow-md">
@@ -32,6 +36,15 @@
 			<label asp-for="Isbn" class="pl-4 font-semibold"></label>
 			<input asp-for="Isbn" class="w-full rounded-md border border-black px-4 py-2" id="prod-isbn-inp-create" required placeholder="Enter product isbn here..." />
 			<span asp-validation-for="Isbn" class="text-red-800"></span>
+		</div>
+
+		<!-- Product Category -->
+		<div class="flex w-full flex-col gap-2">
+			<label asp-for="CategoryId" class="pl-4 font-semibold"></label>
+			<select asp-for="CategoryId" asp-items="categories" class="w-full rounded-md border border-black px-4 py-2" id="prod-category-inp-create" required>
+				<option class="w-full" disabled selected>-- Select category --</option>
+			</select>
+			<span asp-validation-for="CategoryId" class="text-red-800"></span>
 		</div>
 
 		<!-- Product Price -->

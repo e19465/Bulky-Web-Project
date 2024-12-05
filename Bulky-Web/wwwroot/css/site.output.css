@@ -606,6 +606,10 @@ video {
   height: 100vh;
 }
 
+.h-\[150px\] {
+  height: 150px;
+}
+
 .h-\[calc\(100\%-70px\)\] {
   height: calc(100% - 70px);
 }
@@ -616,10 +620,6 @@ video {
 
 .h-full {
   height: 100%;
-}
-
-.h-\[150px\] {
-  height: 150px;
 }
 
 .min-h-\[70px\] {

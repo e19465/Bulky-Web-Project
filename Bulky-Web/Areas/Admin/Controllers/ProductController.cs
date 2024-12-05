@@ -1,6 +1,7 @@
 ﻿using Bulky.DataAccess.Repository.IRepository;
 using Bulky.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Bulky_Web.Areas.Admin.Controllers
 {
@@ -8,17 +9,29 @@ namespace Bulky_Web.Areas.Admin.Controllers
     public class ProductController : Controller
     {
         private readonly IProductRepository _productRepository;
+        private readonly ICategoryRepository _categoryRepository;
 
-        public ProductController(IProductRepository productRepository)
+        public ProductController(IProductRepository productRepository, ICategoryRepository categoryRepository)
         {
             _productRepository = productRepository;
+            _categoryRepository = categoryRepository;
         }
 
-        /// <summary>
-        /// This action is responsible for fetching all products from the database and display them in the view
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet]
+        private IEnumerable<SelectListItem> GetSelectListCategories()
+		{
+			IEnumerable<SelectListItem> categories = _categoryRepository.GetAll().Select(cat => new SelectListItem
+			{
+				Text = cat.Name,
+				Value = cat.Id.ToString()
+			});
+			return categories;
+		}
+
+		/// <summary>
+		/// This action is responsible for fetching all products from the database and display them in the view
+		/// </summary>
+		/// <returns></returns>
+		[HttpGet]
         public IActionResult Index()
         {
             ViewData["Title"] = "Product List";
@@ -45,7 +58,18 @@ namespace Bulky_Web.Areas.Admin.Controllers
         public IActionResult Create()
         {
             ViewData["Title"] = "Create Product";
-            return View(); 
+            try
+            {
+                IEnumerable<SelectListItem> categories = GetSelectListCategories();
+                ViewBag.Categories = categories;
+                return View();
+            }
+            catch (Exception e)
+            {
+                TempData["error"] = "Error occur while fetching categories";
+                Console.WriteLine($"Error occurred while fetching categories: {e.Message}");
+                return RedirectToAction("Index");
+            }
         }
 
 
@@ -69,6 +93,8 @@ namespace Bulky_Web.Areas.Admin.Controllers
                 }
                 else
                 {
+                    IEnumerable<SelectListItem> categories = GetSelectListCategories();
+                    ViewBag.Categories = categories;
                     TempData["error"] = "Invalid data for create product";
                     return View();
                 }
@@ -103,7 +129,9 @@ namespace Bulky_Web.Areas.Admin.Controllers
                     TempData["error"] = "The product you are trying to update does not exist";
                     return RedirectToAction("Index");
                 }
-                return View(foundProduct);
+				IEnumerable<SelectListItem> categories = GetSelectListCategories();
+				ViewBag.Categories = categories;
+				return View(foundProduct);
             }
             catch (Exception e)
             {
@@ -131,9 +159,11 @@ namespace Bulky_Web.Areas.Admin.Controllers
             }
             catch (Exception e)
             {
-                TempData["error"] = "Error occur while updating product";
+				IEnumerable<SelectListItem> categories = GetSelectListCategories();
+				ViewBag.Categories = categories;
+				TempData["error"] = "Error occur while updating product, Please try again later";
                 Console.WriteLine($"Error occurred while updating product: {e.Message}");
-                return RedirectToAction("Index");
+                return View();
             }
         }
 
@@ -165,7 +195,7 @@ namespace Bulky_Web.Areas.Admin.Controllers
             {
                 TempData["error"] = "Error occur while fetching the product to be deleted";
                 Console.WriteLine($"Error occurred while fetching product to delete: {e.Message}");
-                return RedirectToAction("Index");
+                return View();
             }
         }
 
