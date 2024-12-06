@@ -36,4 +36,17 @@
 		// Return the relative path to the saved file
 		return Path.Combine("images", subFolderName, fileName).Replace("\\", "/");
 	}
+
+    public void RemoveImage(string imageUrl)
+    {
+        string webRootPath = _webHostEnvironment.WebRootPath;
+		string modifiedUrl = "\\" + imageUrl.Replace("/", "\\");
+        string imagePath = Path.Combine(webRootPath, modifiedUrl);
+
+        // Check if the file exists and delete it
+        if (System.IO.File.Exists(imagePath))
+        {
+            System.IO.File.Delete(imagePath);
+        }
+    }
 }

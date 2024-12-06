@@ -1,4 +1,5 @@
-﻿using System.Linq.Expressions;
+﻿using System;
+using System.Linq.Expressions;
 using Bulky.DataAccess.Data;
 using Bulky.DataAccess.Repository.IRepository;
 using Microsoft.EntityFrameworkCore;
@@ -35,15 +36,23 @@ namespace Bulky.DataAccess.Repository
 			}
 		}
 
-		/// <summary>
-		/// This is a generic method to get all records from the database
-		/// </summary>
-		/// <returns>List of antities in corresponding type</returns>
-		public IEnumerable<T> GetAll()
+        /// <summary>
+        /// This is a generic method to get a record by its Id
+        /// </summary>
+        /// <param name="includeProperties">The "," separated properties that need to be included using foreign key</param>
+        /// <returns></returns>
+        public IEnumerable<T> GetAll(string? includeProperties = null)
 		{
 			try
 			{
 				IQueryable<T> query = _dbSet;
+				if (!string.IsNullOrEmpty(includeProperties))
+				{
+                    foreach (var includeProperty in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                    {
+                        query = query.Include(includeProperty);
+                    }
+                }
 				return query.ToList();
 			}
 			catch (Exception)
@@ -59,12 +68,19 @@ namespace Bulky.DataAccess.Repository
 		/// </summary>
 		/// <param name="filter">The logic to filter</param>
 		/// <returns>Filtered entity if exists, otherwise null</returns>
-		public T? GetFirstOrDefault(Expression<Func<T, bool>> filter)
+		public T? GetFirstOrDefault(Expression<Func<T, bool>> filter, string? includeProperties = null)
 		{
 			try
 			{
 				IQueryable<T> query = _dbSet;
-				query = query.Where(filter);
+                if (!string.IsNullOrEmpty(includeProperties))
+                {
+                    foreach (var includeProperty in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                    {
+                        query = query.Include(includeProperty);
+                    }
+                }
+                query = query.Where(filter);
 				return query.FirstOrDefault();
 			}catch(Exception)
 			{

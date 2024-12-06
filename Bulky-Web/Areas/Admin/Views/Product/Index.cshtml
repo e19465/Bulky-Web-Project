@@ -5,7 +5,7 @@
 }
 
 <div class="mt-[50px] flex w-full flex-col items-center p-4">
-    <div class="black-ash-gradient flex w-full flex-col items-center justify-center rounded-t-md px-8 py-3 md:w-4/5 md:flex-row md:justify-between">
+    <div class="black-ash-gradient flex w-full flex-col items-center justify-center rounded-t-md px-8 py-3 md:flex-row md:justify-between">
         <p class="tracking-[2px] text-xl font-bold uppercase text-white">@ViewData["Title"]</p>
         <a asp-area="Admin" asp-controller="Product" asp-action="Create" class="flex items-center justify-center gap-2 rounded-md bg-black px-8 py-2 shadow-md">
             <i class="fas fa-plus-circle text-white"></i>
@@ -13,7 +13,7 @@
         </a>
     </div>
 
-    <table class="w-full table-auto border-collapse border border-gray-300 md:w-4/5">
+    <table class="w-full table-auto border-collapse border border-gray-300">
         <thead>
             <tr class="tracking-[2px] bg-gray-100 text-xs uppercase text-black md:text-sm">
                 <th class="border border-gray-300 px-4 py-2 text-left md:pl-12">ID</th>
@@ -36,7 +36,9 @@
                         <td class="border border-gray-300 px-4 py-2 text-left md:pl-12">@product.Isbn</td>
                         <td class="border border-gray-300 px-4 py-2 text-left md:pl-12">@product.Price</td>
                         <td class="border border-gray-300 px-4 py-2 text-left md:pl-12">@product.Author</td>
-                        <td class="border border-gray-300 px-4 py-2 text-left md:pl-12">null</td>
+                        <td class="border border-gray-300 px-4 py-2 text-left md:pl-12">
+                            @product.Category.Name
+                        </td>
                         <td class="border border-gray-300 px-4 py-2 text-left md:pl-12">
                             <div class="flex flex-wrap items-center justify-start gap-2">
                                 <a asp-area="Admin" asp-controller="Product" asp-action="Update" asp-route-id="@product.Id" class="black-ash-gradient flex items-center justify-center gap-2 rounded-md px-8 py-2">

@@ -1,5 +1,6 @@
 ﻿using Bulky.DataAccess.Repository;
 using Bulky.DataAccess.Repository.IRepository;
+using Bulky_Web.helpers;
 
 namespace Bulky_Web.Extensions
 {
@@ -10,7 +11,8 @@ namespace Bulky_Web.Extensions
 			services.AddScoped<ICategoryRepository, CategoryRepository>();
 			services.AddScoped<IProductRepository, ProductRepository>();
 			services.AddScoped<FileUploadService>();
-			return services;
+			services.AddScoped<ArrangeQueryIncludeTypes>();
+            return services;
 
 		}
 	}

@@ -79,6 +79,7 @@
 		<!-- Product Image -->
 		<div class="flex w-full flex-col gap-2">
 			<span class="pl-4 font-semibold">Upload Product Image</span>
+			<img id="prod-img-preview" class="mx-4 my-2 h-40 w-40 rounded-md border border-gray-200 object-cover" src="#" alt="Product Image Preview" style="display: none;" />
 			<input type="file" name="file" class="w-full rounded-md border border-black px-4 py-2" id="prod-img-inp-create" />
 		</div>
 
@@ -90,6 +91,7 @@
 </div>
 
 @section Scripts {
+	<script src="~/js/product/product-create.js"></script>
 	@{
 		await Html.RenderPartialAsync("_TinyMvcTextArea");
 		await Html.RenderPartialAsync("_ValidationScriptsPartial");

@@ -1,5 +1,6 @@
 ﻿using Bulky.DataAccess.Repository.IRepository;
 using Bulky.Models;
+using Bulky_Web.helpers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -11,12 +12,15 @@ namespace Bulky_Web.Areas.Admin.Controllers
         private readonly IProductRepository _productRepository;
         private readonly ICategoryRepository _categoryRepository;
         private readonly FileUploadService _fileUploadService;
+        private readonly ArrangeQueryIncludeTypes _arrangeQueryIncludeTypes;
+        private readonly string includeCategory = "Category";
 
-		public ProductController(IProductRepository productRepository, ICategoryRepository categoryRepository, FileUploadService fileUploadService)
+        public ProductController(IProductRepository productRepository, ICategoryRepository categoryRepository, FileUploadService fileUploadService, ArrangeQueryIncludeTypes arrange)
         {
             _productRepository = productRepository;
             _categoryRepository = categoryRepository;
 			_fileUploadService = fileUploadService;
+            _arrangeQueryIncludeTypes = arrange;
 		}
 
         private IEnumerable<SelectListItem> GetSelectListCategories()
@@ -39,8 +43,10 @@ namespace Bulky_Web.Areas.Admin.Controllers
             ViewData["Title"] = "Product List";
             try
             {
-                List<Product> products = _productRepository.GetAll().ToList();
-                ViewBag.Products = products;
+                List<String> queryIncludeTypes = new List<string> { includeCategory };
+                string includeProperties = _arrangeQueryIncludeTypes.ArrangeQueryInclude(queryIncludeTypes);
+                List<Product> products = _productRepository.GetAll(includeProperties).ToList();
+				ViewBag.Products = products;
                 return View();
             }
             catch (Exception ex)
@@ -154,10 +160,19 @@ namespace Bulky_Web.Areas.Admin.Controllers
         /// <param name="product">Updated product to save in the DB</param>
         /// <returns></returns>
         [HttpPost]
-        public IActionResult Update(Product product)
+        public IActionResult Update(Product product, IFormFile? file)
         {
             try
             {
+                if (file != null)
+                {
+                    string? existingImage = product.ImageUrl;
+                    if(existingImage != null)
+                    {
+                        _fileUploadService.RemoveImage(existingImage);
+                    }
+                    product.ImageUrl = _fileUploadService.UploadImage(file, "product");
+                }
                 _productRepository.Update(product);
                 _productRepository.Save();
                 TempData["success"] = "Product updated successfully";

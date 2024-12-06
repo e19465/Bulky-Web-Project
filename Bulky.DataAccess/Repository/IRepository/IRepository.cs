@@ -8,20 +8,22 @@ namespace Bulky.DataAccess.Repository.IRepository
 	/// <typeparam name="T">Any class that need to implement this interface</typeparam>
 	public interface IRepository<T> where T : class
 	{
-		// T - Generic Type class (Category, Product, ...etc)
+        // T - Generic Type class (Category, Product, ...etc)
 
-		/// <summary>
-		/// This is a generic method to get all records from the database
-		/// </summary>
-		/// <returns>List of records</returns>
-		IEnumerable<T> GetAll();
+        /// <summary>
+        /// This is a generic method to get a record by its Id
+        /// </summary>
+        /// <param name="includeProperties">The "," separated properties that need to be included using foreign key</param>
+        /// <returns></returns>
+        IEnumerable<T> GetAll(string? includeProperties = null);
 
-		/// <summary>
-		/// This is a generic method to get the first record that matches the filter
-		/// </summary>
-		/// <param name="filter">Filtering logic</param>
-		/// <returns>Filtered record if exists, otherwise null</returns>
-		T? GetFirstOrDefault(Expression<Func<T, bool>> filter);
+        /// <summary>
+        /// This is a generic method to get the first record that matches the filter
+        /// </summary>
+        /// <param name="filter">Filtering logic</param>
+        /// <param name="includeProperties">The "," separated properties that need to be included using foreign key</param>
+        /// <returns>Filtered record if exists, otherwise null</returns>
+        T? GetFirstOrDefault(Expression<Func<T, bool>> filter, string? includeProperties = null);
 
 		/// <summary>
 		/// This is a generic method to add a new record to the database
