@@ -10,12 +10,14 @@ namespace Bulky_Web.Areas.Admin.Controllers
     {
         private readonly IProductRepository _productRepository;
         private readonly ICategoryRepository _categoryRepository;
+        private readonly FileUploadService _fileUploadService;
 
-        public ProductController(IProductRepository productRepository, ICategoryRepository categoryRepository)
+		public ProductController(IProductRepository productRepository, ICategoryRepository categoryRepository, FileUploadService fileUploadService)
         {
             _productRepository = productRepository;
             _categoryRepository = categoryRepository;
-        }
+			_fileUploadService = fileUploadService;
+		}
 
         private IEnumerable<SelectListItem> GetSelectListCategories()
 		{
@@ -79,14 +81,18 @@ namespace Bulky_Web.Areas.Admin.Controllers
         /// <param name="product">The details of the product to create</param>
         /// <returns></returns>
         [HttpPost]
-        public IActionResult Create(Product product)
+        public IActionResult Create(Product product, IFormFile? file)
         {
             try
             {
                 ViewData["Title"] = "Create Product";
                 if (ModelState.IsValid)
                 {
-                    _productRepository.Add(product);
+					if (file != null)
+					{
+						product.ImageUrl = _fileUploadService.UploadImage(file, "product");
+					}
+					_productRepository.Add(product);
                     _productRepository.Save();
                     TempData["success"] = "Product created successfully";
                     return RedirectToAction("Index");

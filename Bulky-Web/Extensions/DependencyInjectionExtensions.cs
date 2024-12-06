@@ -9,6 +9,7 @@ namespace Bulky_Web.Extensions
 		{
 			services.AddScoped<ICategoryRepository, CategoryRepository>();
 			services.AddScoped<IProductRepository, ProductRepository>();
+			services.AddScoped<FileUploadService>();
 			return services;
 
 		}

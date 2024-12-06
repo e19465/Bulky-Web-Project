@@ -14,7 +14,7 @@ namespace Bulky.Models
         [Required(ErrorMessage = "Title of the product is required")]
         public required string Title { get; set; }
 
-        [StringLength(500, ErrorMessage = "Maximum length for description is 500 characters.")]
+        [StringLength(1000, ErrorMessage = "Maximum length for description is 500 characters.")]
         public string? Description { get; set; }
 
         [Required(ErrorMessage = "ISBN for product is required")]
