@@ -12,7 +12,7 @@
 - **Tailwind CSS**: All styling is handled by Tailwind CSS, ensuring a responsive, modern, and customizable design.
 - **Responsive Design**: The UI is designed to be responsive, ensuring compatibility across devices.
 - **Repository Pattern**: The repository pattern is used to abstract the data access layer and provide a cleaner separation of concerns.
-- **n-tier Architecture**: The project follows an n-tier architecture that divides the application into logical layers (Presentation, Business, Data) for better scalability, maintainability, and testability.
+- **N-tier Architecture**: The project follows an n-tier architecture that divides the application into logical layers (Presentation, Business, Data) for better scalability, maintainability, and testability.
 
 ## Technologies Used
 
