@@ -55,9 +55,9 @@
                                 
                                 @foreach(var dropDownLink in dropDownLinks)
                                 {
-                                    <li class="flex w-full items-center justify-center rounded-none hover:rounded-md hover:bg-gray-800 border-b border-b-gray-800">
+                                    <li class="flex w-full items-center justify-center rounded-none border-b border-b-gray-800 hover:rounded-md hover:bg-gray-800">
                                         <a 
-                                           class="text-gray-800 flex w-full items-center justify-center  py-2 hover:text-gray-100"
+                                           class="flex w-full items-center justify-center py-2 text-gray-800 hover:text-gray-100"
                                            asp-area="@dropDownLink.Area"
                                            asp-controller="@dropDownLink.Controller"
                                            asp-action="@dropDownLink.ActionName">
@@ -85,8 +85,10 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     <script src="https://cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
     <script src="https://cdn.tiny.cloud/1/jiq0zhc4v1hxkqpdx4dt5lhmxo5wcb43m72kh2eaaypbqf0z/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

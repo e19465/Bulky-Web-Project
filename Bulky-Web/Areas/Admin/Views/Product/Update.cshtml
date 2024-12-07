@@ -7,6 +7,7 @@
 <div class="flex h-auto w-full items-center justify-center p-8 text-sm">
 	<form asp-action="Update" method="post" class="flex w-full flex-col items-center justify-center gap-4 rounded-md border border-gray-200 p-8 shadow-md md:w-3/4 lg:w-1/2" id="cat-edit-form" enctype="multipart/form-data">
 		<input asp-for="Id" hidden />
+		<input asp-for="ImageUrl" hidden />
 		<div class="black-ash-gradient flex w-full items-center justify-center rounded-md p-4 text-left uppercase shadow-md">
 			<span class="tracking-[2px] font-semibold text-white">edit product</span>
 		</div>

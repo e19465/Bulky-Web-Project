@@ -27,14 +27,11 @@ namespace Bulky_Web.Areas.Admin.Controllers
             ViewData["Title"] = "Category List";
             try
             {
-                List<Category> categories = _categoryRepository.GetAll().ToList();
-                ViewBag.Categories = categories;
                 return View();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 TempData["error"] = "Error occur while fetching categories";
-                Console.WriteLine($"Error occurred while fetching categories: {e.Message}");
                 return RedirectToAction("Index");
             }
         }
@@ -78,7 +75,6 @@ namespace Bulky_Web.Areas.Admin.Controllers
                 catch (Exception e)
                 {
                     TempData["error"] = "Error occur while creating category";
-                    Console.WriteLine($"Error occurred while fetching categories: {e.Message}");
                     return RedirectToAction("Index");
                 }
             }
@@ -110,10 +106,9 @@ namespace Bulky_Web.Areas.Admin.Controllers
                 }
                 return View(category);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 TempData["error"] = "Error occur while fetching category";
-                Console.WriteLine($"Error occurred while fetching categories: {e.Message}");
                 return RedirectToAction("Index");
             }
         }
@@ -139,75 +134,54 @@ namespace Bulky_Web.Areas.Admin.Controllers
                 }
                 return View();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 TempData["error"] = "Error occur while updating category";
-                Console.WriteLine($"Error occurred while fetching categories: {e.Message}");
                 return RedirectToAction("Index");
             }
         }
 
-
-        /// <summary>
-        /// This action fetch the category from ID and gives it to view
-        /// </summary>
-        /// <param name="id">Yhe ID(Guid) of the category</param>
-        /// <returns></returns>
-        public IActionResult Delete(int id)
+        #region API CALLS
+        [HttpGet]
+        public IActionResult GetAll()
         {
-            ViewData["Title"] = "Delete Category";
             try
             {
-                Category? category = _categoryRepository.GetFirstOrDefault(c => c.Id == id);
-                if (category == null)
-                {
-                    TempData["error"] = "The category you are looking for isn't found!";
-                    return RedirectToAction("Index");
-                }
-                return View(category);
+                List<Category> categories = _categoryRepository.GetAll().ToList();
+                return StatusCode(200, new { data = categories });
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                TempData["error"] = "Error occur while fetching category";
-                Console.WriteLine($"Error occurred while fetching categories: {e.Message}");
-                return RedirectToAction("Index");
+                return StatusCode(500, new { error = $"Error while retrieving categories: {ex.Message}" });
             }
         }
 
-
-
-        /// <summary>
-        /// This action gets the id of the category to be deleted and delete it from the database
-        /// </summary>
-        /// <param name="id">ID(Guid) of the category</param>
-        /// <returns></returns>
-        [HttpPost, ActionName("Delete")]
-        public IActionResult DeletePOST(int? id)
+        [HttpDelete]
+        public IActionResult Delete(int? id)
         {
-            if (id == null)
-            {
-                return View();
-            }
             try
             {
-                Category? foundCat = _categoryRepository.GetFirstOrDefault(c => c.Id == id);
-                if (foundCat == null)
+                if (id == null)
                 {
-                    TempData["error"] = "The category you are looking for isn't found!";
-                    return RedirectToAction("Index");
+                    return StatusCode(400, new { success = false, error = "Invalid category ID" });
                 }
-                _categoryRepository.Remove(foundCat);
+
+                Category? categoryToBeDeleted = _categoryRepository.GetFirstOrDefault(x => x.Id == id);
+                if (categoryToBeDeleted == null)
+                {
+                    return StatusCode(404, new { success = false, error = "Product not found" });
+                }
+
+                _categoryRepository.Remove(categoryToBeDeleted);
                 _categoryRepository.Save();
-                TempData["success"] = "Category deleted successfully";
-                return RedirectToAction("Index");
+                return Json(new { success = true, message = "Category deleted successfully" });
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                TempData["error"] = "Error occur while deleting category";
-                Console.WriteLine($"Error occurred while fetching categories: {e.Message}");
-                return RedirectToAction("Index");
+                return StatusCode(500, new { success = false, error = $"Error while deleting category: {ex.Message}" });
             }
         }
+        #endregion
 
     }
 }

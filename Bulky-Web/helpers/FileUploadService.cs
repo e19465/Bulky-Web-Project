@@ -39,9 +39,7 @@
 
     public void RemoveImage(string imageUrl)
     {
-        string webRootPath = _webHostEnvironment.WebRootPath;
-		string modifiedUrl = "\\" + imageUrl.Replace("/", "\\");
-        string imagePath = Path.Combine(webRootPath, modifiedUrl);
+        string imagePath = Path.Combine(_webHostEnvironment.WebRootPath, imageUrl.TrimStart('\\'));
 
         // Check if the file exists and delete it
         if (System.IO.File.Exists(imagePath))

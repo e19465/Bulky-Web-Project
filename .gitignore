@@ -10,7 +10,7 @@
 *.userosscache
 *.sln.docstates
 
-Bulky-Web/wwwroot/images/
+Bulky-Web/wwwroot/images/product/*
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs

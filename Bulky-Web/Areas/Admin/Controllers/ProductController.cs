@@ -19,34 +19,30 @@ namespace Bulky_Web.Areas.Admin.Controllers
         {
             _productRepository = productRepository;
             _categoryRepository = categoryRepository;
-			_fileUploadService = fileUploadService;
+            _fileUploadService = fileUploadService;
             _arrangeQueryIncludeTypes = arrange;
-		}
+        }
 
         private IEnumerable<SelectListItem> GetSelectListCategories()
-		{
-			IEnumerable<SelectListItem> categories = _categoryRepository.GetAll().Select(cat => new SelectListItem
-			{
-				Text = cat.Name,
-				Value = cat.Id.ToString()
-			});
-			return categories;
-		}
+        {
+            IEnumerable<SelectListItem> categories = _categoryRepository.GetAll().Select(cat => new SelectListItem
+            {
+                Text = cat.Name,
+                Value = cat.Id.ToString()
+            });
+            return categories;
+        }
 
-		/// <summary>
-		/// This action is responsible for fetching all products from the database and display them in the view
-		/// </summary>
-		/// <returns></returns>
-		[HttpGet]
+        /// <summary>
+        /// This action is responsible for fetching all products from the database and display them in the view
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
         public IActionResult Index()
         {
             ViewData["Title"] = "Product List";
             try
             {
-                List<String> queryIncludeTypes = new List<string> { includeCategory };
-                string includeProperties = _arrangeQueryIncludeTypes.ArrangeQueryInclude(queryIncludeTypes);
-                List<Product> products = _productRepository.GetAll(includeProperties).ToList();
-				ViewBag.Products = products;
                 return View();
             }
             catch (Exception ex)
@@ -72,10 +68,9 @@ namespace Bulky_Web.Areas.Admin.Controllers
                 ViewBag.Categories = categories;
                 return View();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 TempData["error"] = "Error occur while fetching categories";
-                Console.WriteLine($"Error occurred while fetching categories: {e.Message}");
                 return RedirectToAction("Index");
             }
         }
@@ -94,11 +89,11 @@ namespace Bulky_Web.Areas.Admin.Controllers
                 ViewData["Title"] = "Create Product";
                 if (ModelState.IsValid)
                 {
-					if (file != null)
-					{
-						product.ImageUrl = _fileUploadService.UploadImage(file, "product");
-					}
-					_productRepository.Add(product);
+                    if (file != null)
+                    {
+                        product.ImageUrl = _fileUploadService.UploadImage(file, "product");
+                    }
+                    _productRepository.Add(product);
                     _productRepository.Save();
                     TempData["success"] = "Product created successfully";
                     return RedirectToAction("Index");
@@ -111,10 +106,9 @@ namespace Bulky_Web.Areas.Admin.Controllers
                     return View();
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 TempData["error"] = "Error occur while creating product";
-                Console.WriteLine($"Error occurred while creating product: {e.Message}");
                 return RedirectToAction("Index");
             }
         }
@@ -141,14 +135,13 @@ namespace Bulky_Web.Areas.Admin.Controllers
                     TempData["error"] = "The product you are trying to update does not exist";
                     return RedirectToAction("Index");
                 }
-				IEnumerable<SelectListItem> categories = GetSelectListCategories();
-				ViewBag.Categories = categories;
-				return View(foundProduct);
+                IEnumerable<SelectListItem> categories = GetSelectListCategories();
+                ViewBag.Categories = categories;
+                return View(foundProduct);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 TempData["error"] = "Error occur while fetching product to update";
-                Console.WriteLine($"Error occurred while updating product: {e.Message}");
                 return RedirectToAction("Index");
             }
         }
@@ -167,7 +160,7 @@ namespace Bulky_Web.Areas.Admin.Controllers
                 if (file != null)
                 {
                     string? existingImage = product.ImageUrl;
-                    if(existingImage != null)
+                    if (existingImage != null)
                     {
                         _fileUploadService.RemoveImage(existingImage);
                     }
@@ -178,70 +171,63 @@ namespace Bulky_Web.Areas.Admin.Controllers
                 TempData["success"] = "Product updated successfully";
                 return RedirectToAction("Index");
             }
-            catch (Exception e)
+            catch (Exception)
             {
-				IEnumerable<SelectListItem> categories = GetSelectListCategories();
-				ViewBag.Categories = categories;
-				TempData["error"] = "Error occur while updating product, Please try again later";
-                Console.WriteLine($"Error occurred while updating product: {e.Message}");
+                IEnumerable<SelectListItem> categories = GetSelectListCategories();
+                ViewBag.Categories = categories;
+                TempData["error"] = "Error occur while updating product, Please try again later";
                 return View();
             }
         }
 
+        #region API CALLS
+        [HttpGet]
+        public IActionResult GetAll()
+        {
+            try
+            {
+                List<string> queryIncludeTypes = new List<string> { includeCategory };
+                string includeProperties = _arrangeQueryIncludeTypes.ArrangeQueryInclude(queryIncludeTypes);
+                List<Product> products = _productRepository.GetAll(includeProperties).ToList();
+                return StatusCode(200, new { data = products });
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, new { error = "Error while retrieving products" });
+            }
+        }
 
-
-        /// <summary>
-        /// This action responsible for deleting the product from the database
-        /// </summary>
-        /// <param name="id">The ID of the product to be deleted</param>
-        /// <returns>If produc exists, returns it to View</returns>
+        [HttpDelete]
         public IActionResult Delete(int? id)
         {
-            ViewData["Title"] = "Delete Product";
             try
             {
-                if(id == null)
+                if (id == null)
                 {
-                    return RedirectToAction("Index");
+                    return StatusCode(400, new { success = false, error = "Invalid product ID" });
                 }
-                Product? product = _productRepository.GetFirstOrDefault(x => x.Id == id);
-                if(product  == null)
+
+                Product? productToBeDeleted = _productRepository.GetFirstOrDefault(x => x.Id == id);
+                if (productToBeDeleted == null)
                 {
-                    TempData["error"] = "The product you are trying to delete does not exist";
-                    return RedirectToAction("Index");
+                    return StatusCode(404, new { success = false, error = "Product not found" });
                 }
-                return View(product);
-            }
-            catch(Exception e)
-            {
-                TempData["error"] = "Error occur while fetching the product to be deleted";
-                Console.WriteLine($"Error occurred while fetching product to delete: {e.Message}");
-                return View();
-            }
-        }
 
+                string? existingImage = productToBeDeleted.ImageUrl;
+                if (existingImage != null)
+                {
+                    _fileUploadService.RemoveImage(existingImage);
+                }
 
-        /// <summary>
-        /// This action responsible for deleting the product from the database
-        /// </summary>
-        /// <param name="product">The product to be deleted</param>
-        /// <returns></returns>
-        [HttpPost]
-        public IActionResult Delete(Product product)
-        {
-            try
-            {
-                _productRepository.Remove(product);
+                _productRepository.Remove(productToBeDeleted);
                 _productRepository.Save();
-                TempData["success"] = "Product deleted successfully";
-                return RedirectToAction("Index");
+                return Json(new { success = true, message = "Product deleted successfully" });
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                TempData["error"] = "Error occur while deleting product";
-                Console.WriteLine($"Error occurred while deleting product: {e.Message}");
-                return RedirectToAction("Index");
+                return StatusCode(500, new { success = false, error = $"Error while deleting product: {ex.Message}" });
             }
         }
+        #endregion
     }
 }
