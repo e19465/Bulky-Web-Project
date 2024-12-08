@@ -1,0 +1,94 @@
+﻿@model Product
+
+<div class="flex h-auto w-full flex-col gap-4 p-4 md:flex-row">
+
+	<!-- Product Image -->
+	<div class="flex-1">
+		<img src="@Url.Content($"~/{Model.ImageUrl}")" action="" alt="Product Image" class="h-auto w-full rounded-md object-cover" />
+	</div>
+
+	<!-- Product Details -->
+	<div class="flex-1 flex flex-col gap-4 rounded-md border border-gray-300 p-4 pt-12 text-gray-600 shadow-lg">
+
+		<!-- Category -->
+		<div class="flex w-full items-center justify-start">
+			<span class="rounded-md bg-yellow-600 px-4 py-2 text-white shadow-md">@Model.Category.Name</span>
+		</div>
+
+		<div class="flex w-full flex-col gap-1">
+			<!-- ISBN -->
+			<div class="flex w-full flex-row gap-2">
+				<span class="font-semibold">ISBN:</span>
+				<span>@Model.Isbn</span>
+			</div>
+
+			<!-- List Price -->
+			<div class="flex w-full flex-row gap-2">
+				<span class="font-semibold">List Price ($):</span>
+				<span class="line-through">@Model.ListPrice</span>
+			</div>
+		</div>
+
+		<!-- Product Pricing -->
+		<div class="mt-4 flex w-full rounded-md border border-gray-300 p-4 shadow-md">
+			<table class="w-full">
+				<thead>
+					<tr class="border-b border-b-gray-300">
+						<th class="tracking-[1px] font-semibold">Quantity</th>
+						<th class="">1-50</th>
+						<th class="">51-100</th>
+						<th class="">100+</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td class="tracking-[1px] font-semibold">Price($)</td>
+						<td>@Model.Price</td>
+						<td>@Model.Price100</td>
+						<td>@Model.Price100</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<!-- Product Description -->
+		<div class="flex w-full flex-col gap-1 p-2">
+			<span class="font-semibold">Description</span>
+			<span>
+				@Html.Raw(Model.Description)
+			</span>
+		</div>
+
+		<div class="flex w-full flex-col gap-1 rounded-md border border-gray-300 p-4 shadow-md">
+			<!-- Total Count -->
+			<div class="flex w-full">
+				<span class="flex h-[50px] w-[100px] items-center justify-center rounded-l-md bg-black text-white">Count</span>
+				<input id="countInput" type="number" value="0" class="outline-0 h-[50px] rounded-r-md border border-black p-2 hover:outline-0" />
+			</div>
+
+			<!-- Total Price -->
+			<div class="flex w-full gap-2">
+				<span class="font-semibold">Amount ($):</span>
+				<span id="totalPrice">0.00</span> <!-- This will be updated dynamically -->
+			</div>
+		</div>
+
+		<div class="w-full">
+			<div class="flex w-full cursor-not-allowed items-center justify-center rounded-md bg-gray-200 py-3 text-white shadow-md">
+				Add To Cart (Coming Soon...)
+			</div>
+		</div>
+	</div>
+</div>
+
+@section Scripts {
+	<!-- Expose the model's price values to JavaScript -->
+	<script type="text/javascript">
+		var priceData = {
+			price1to50: "@Model.Price",
+			price51to100: "@Model.Price100",
+			price100Plus: "@Model.Price100"
+		};
+	</script>
+	<script src="~/js/product/single-product.js"></script>
+}

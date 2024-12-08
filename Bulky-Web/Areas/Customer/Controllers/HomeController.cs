@@ -1,5 +1,7 @@
 using System.Diagnostics;
+using Bulky.DataAccess.Repository.IRepository;
 using Bulky.Models;
+using Bulky_Web.helpers;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Bulky_Web.Areas.Customer.Controllers
@@ -9,10 +11,10 @@ namespace Bulky_Web.Areas.Customer.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+		public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
-        }
+		}
 
         public IActionResult Index()
         {
