@@ -1,12 +1,6 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
     List<Product> products = ViewBag.Products as List<Product> ?? new List<Product>();
-	var navLinks = new[]
-    {
-        new { Name = "About", Area = "Customer", Controller = "Home", ActionName = "About" },
-        new { Name = "Privacy", Area = "Customer", Controller = "Home", ActionName = "Privacy" },
-        new { Name = "Contact", Area = "Customer", Controller = "Home", ActionName = "Contact" }
-    };
 }
 
 <div class="flex h-auto w-full flex-col">
@@ -145,20 +139,4 @@
             <button type="submit" class="rounded-r-md bg-sky-400 p-3 text-white">Subscribe</button>
         </form>
     </div>
-
-	<!-- Footer -->
-	<div class="black-ash-gradient w-full py-2 text-white">
-            <div class="mx-auto flex max-w-screen-xl justify-between px-6">
-                <div>
-                    <h3 class="text-lg font-semibold">Bulky Book Web</h3>
-                    <p class="mt-1 text-sm">Your go-to platform for book lovers.</p>
-                </div>
-                <div class="flex space-x-6">
-                    @foreach (var navLink in navLinks)
-                    {
-                        <a asp-area="@navLink.Area" asp-controller="@navLink.Controller" asp-action="@navLink.ActionName" class="text-gray-400 hover:text-gray-100">@navLink.Name</a>
-                    }
-                </div>
-            </div>
-        </div>
 </div>
