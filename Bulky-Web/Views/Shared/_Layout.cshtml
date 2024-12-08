@@ -92,14 +92,14 @@
             <div id="mobile-menu" class="z-[10000] absolute left-[25%] top-[50px] hidden w-3/4 flex-col items-center border border-sky-200 bg-gray-800 text-white sm:left-[50%] sm:w-1/2 md:hidden">
                 @foreach (var navLink in navLinks)
                 {
-                    <a asp-area="@navLink.Area" asp-controller="@navLink.Controller" asp-action="@navLink.ActionName" class="text-gray-400 hover:text-gray-100 w-full py-2 flex items-center justify-center">@navLink.Name</a>
+                    <a asp-area="@navLink.Area" asp-controller="@navLink.Controller" asp-action="@navLink.ActionName" class="flex w-full items-center justify-center py-2 text-gray-400 hover:text-gray-100">@navLink.Name</a>
                 }
-                <div class="w-full pt-4 pb-2 text-white border-b border-b-white flex items-center justify-center" >
+                <div class="flex w-full items-center justify-center border-b border-b-white pb-2 pt-4 text-white" >
                     Admin
                 </div>
                 @foreach (var mobileNav in mobileNavAdmin)
 				{
-					<a asp-area="@mobileNav.Area" asp-controller="@mobileNav.Controller" asp-action="@mobileNav.ActionName" class="text-gray-400 hover:text-gray-100 w-full py-2 flex items-center justify-center">@mobileNav.Name</a>
+					<a asp-area="@mobileNav.Area" asp-controller="@mobileNav.Controller" asp-action="@mobileNav.ActionName" class="flex w-full items-center justify-center py-2 text-gray-400 hover:text-gray-100">@mobileNav.Name</a>
 				}
             </div>
         </nav>
@@ -107,8 +107,28 @@
 
     <main class="h-[calc(100%-70px)] w-full overflow-y-auto" >
         <partial name="_Notification" />
-        @RenderBody()
+        <div class="w-full h-full">
+            @RenderBody()
+        </div>
+        <div class="black-ash-gradient py-2 text-white w-full">
+            <div class="mx-auto flex max-w-screen-xl justify-between px-6">
+                <div>
+                    <h3 class="text-lg font-semibold">Bulky Book Web</h3>
+                    <p class="mt-1 text-sm">Your go-to platform for book lovers.</p>
+                </div>
+                <div class="flex space-x-6">
+                    @foreach (var navLink in navLinks)
+                    {
+                        @if (navLink.Name != "Products")
+                        {
+                            <a asp-area="@navLink.Area" asp-controller="@navLink.Controller" asp-action="@navLink.ActionName" class="text-gray-400 hover:text-gray-100">@navLink.Name</a>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
     </main>
+
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
