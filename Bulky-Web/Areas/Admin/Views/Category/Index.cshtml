@@ -6,7 +6,7 @@
 }
 
 <div class="mt-[20px] flex w-full flex-col items-center p-4">
-    <div class="black-ash-gradient flex w-full flex-col items-center justify-center rounded-t-md px-8 py-3 md:flex-row md:justify-between">
+    <div class="black-ash-gradient flex w-full md:w-[70%] flex-col items-center justify-center rounded-t-md px-8 py-3 md:flex-row md:justify-between">
         <p class="tracking-[2px] text-xl font-bold uppercase text-white">@ViewData["Title"]</p>
         <a asp-controller="Category" asp-action="Create" class="flex items-center justify-center gap-2 rounded-md bg-black px-8 py-2 shadow-md">
             <i class="fas fa-plus-circle text-white"></i>
@@ -15,17 +15,19 @@
     </div>
 
     <!-- Table rendered using JS using Ajax and Data tables -->
-    <div class="h-auto w-full">
-        <table id="categoryTable" class="w-full border-collapse overflow-x-auto rounded-md border shadow-md">
-            <thead>
-                <tr class="tracking-[2px] bg-gray-100 text-xs uppercase text-black md:text-sm">
-                    @foreach (string header in tableHeaders)
-                    {
-                        <th class="border border-gray-300 px-4 py-2 text-center">@header</th>
-                    }
-                </tr>
-            </thead>
-        </table>
+    <div class="flex h-auto w-full items-center justify-center">
+        <div class="w-full md:w-[70%]">
+            <table id="categoryTable" class="w-full border-collapse overflow-x-auto rounded-md border shadow-md">
+                <thead>
+                    <tr class="tracking-[2px] bg-gray-100 text-xs uppercase text-black md:text-sm">
+                        @foreach (string header in tableHeaders)
+                        {
+                            <th class="border border-gray-300 px-4 py-2 text-center">@header</th>
+                        }
+                    </tr>
+                </thead>
+            </table>
+        </div>
     </div>
 </div>
 

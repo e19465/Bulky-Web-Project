@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using Bulky.DataAccess.Repository.IRepository;
 using Bulky.Models;
 using Bulky_Web.helpers;
@@ -10,18 +9,45 @@ namespace Bulky_Web.Areas.Customer.Controllers
 	public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IProductRepository _productRepository;
+        private readonly ArrangeQueryIncludeTypes _arrangeQueryIncludeTypes;
+        private readonly string includeCategory = "Category";
 
-		public HomeController(ILogger<HomeController> logger)
+		public HomeController(ILogger<HomeController> logger, IProductRepository product, ArrangeQueryIncludeTypes arrange)
         {
             _logger = logger;
+            _productRepository = product;
+			_arrangeQueryIncludeTypes = arrange;
 		}
 
         public IActionResult Index()
         {
-            return View();
+            try
+            {
+                List<string> includeTypes = new List<string> { includeCategory };
+				string includeString = _arrangeQueryIncludeTypes.ArrangeQueryInclude(includeTypes);
+				List<Product> products = _productRepository.GetAll(includeString).ToList();
+                ViewBag.Products = products;    
+				return View();
+			}
+            catch (Exception)
+            {
+                return RedirectToAction("Home", "Error");
+
+			}
         }
 
         public IActionResult Privacy()
+        {
+            return View();
+        }
+
+        public IActionResult Contact()
+        {
+            return View();
+        }
+
+        public IActionResult About()
         {
             return View();
         }

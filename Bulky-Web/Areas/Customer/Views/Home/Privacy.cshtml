@@ -1,6 +1,29 @@
 ﻿@{
-    ViewData["Title"] = "Privacy Policy";
+	ViewData["Title"] = "Privacy Policy";
 }
-<h1>@ViewData["Title"]</h1>
 
-<p>Use this page to detail your site's privacy policy.</p>
+<div class="flex h-auto w-full flex-col items-center justify-center gap-2 overflow-auto p-4">
+	<div class="flex h-full w-full flex-col items-center justify-start gap-2 sm:justify-center sm:w-[90%] md:w-[70%] lg:w-[50%] xl:w-[40%]">
+		<div class="flex w-full flex-col items-center justify-center rounded-md border border-gray-300 p-4 shadow-md">
+			<h1 class="tracking-[2px] text-base font-semibold uppercase">Privacy Policy</h1>
+			<p class="text-center capitalize text-gray-500">Bulky Book Web</p>
+		</div>
+
+		<!-- Privacy Policy Description -->
+		<div class="mt-6 flex w-full flex-col items-center justify-center rounded-md border border-gray-300 p-4 shadow-md">
+			<p class="text-center font-medium text-gray-700">
+				At <strong class="text-black">Bulky Book Web</strong>, we value your privacy. This policy explains how we collect, use, and protect your personal information.
+			</p>
+			<p class="mt-4 text-center font-medium text-gray-700">
+				We collect personal details like your name, email, and payment info to process orders and enhance your experience. We never sell or share this data without your consent, except as required by law.
+			</p>
+			<p class="mt-4 text-center font-medium text-gray-700">
+				We use cookies to improve your experience on our site. You can disable cookies in your browser, but this may affect some features.
+			</p>
+			<p class="mt-4 text-center font-medium text-gray-700">
+				While we implement security measures, no online transmission is 100% secure. By using our site, you consent to this policy, which we may update periodically. For questions, contact us at <a asp-area="Customer" asp-controller="Home" asp-action="Contact" class="text-blue-600">contact@bulkybookweb</a>.
+			</p>
+		</div>
+
+	</div>
+</div>

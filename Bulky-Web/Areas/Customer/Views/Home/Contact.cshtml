@@ -1,0 +1,40 @@
+﻿@{
+	ViewData["Title"] = "Contact Us";
+}
+
+
+
+<div class="flex h-full w-full flex-col items-center justify-center gap-2">
+	<div class="flex h-full w-full flex-col items-center justify-start gap-2 sm:justify-center sm:w-[90%] md:w-[70%] lg:w-[50%] xl:w-[40%]">
+		<div class="flex w-full flex-col items-center justify-center rounded-md border border-gray-300 p-4 shadow-md">
+			<h1 class="tracking-[2px] text-base font-semibold uppercase">contact us</h1>
+			<p class="text-center text-gray-500">Please fill out the form below to contact us.</p>
+		</div>
+
+		<form class="flex h-auto w-full flex-col gap-2 rounded-md border border-gray-300 p-4 shadow-md">
+
+			<!--Name-->
+			<div class="flex w-full flex-col">
+				<span class="w-full text-left font-semibold">Name</span>
+				<input type="text" class="w-full rounded-md border border-gray-500 bg-transparent p-2" placeholder="Enter your name..." required />
+			</div>
+
+			<!--Email-->
+			<div class="flex w-full flex-col">
+				<span class="w-full text-left font-semibold">Email</span>
+				<input type="email" class="w-full rounded-md border border-gray-500 bg-transparent p-2" placeholder="Enter your email..." required />
+			</div>
+
+			<!--Email-->
+			<div class="flex w-full flex-col">
+				<span class="w-full text-left font-semibold">Description</span>
+				<textarea type="text" class="h-[100px] w-full rounded-md border border-gray-500 bg-transparent p-2" placeholder="Enter requirement/problem description..." required></textarea>
+			</div>
+
+			<div class="flex w-full cursor-not-allowed items-center justify-center rounded-md bg-gray-300 py-3 text-white">
+				SEND (Coimng Soon)
+			</div>
+
+		</form>
+	</div>
+</div>

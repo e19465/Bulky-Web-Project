@@ -1,7 +1,143 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
+    List<Product> products = ViewBag.Products as List<Product> ?? new List<Product>();
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
+<div class="flex h-auto w-full flex-col">
+
+    <!--Hero Video-->
+    <div class="relative flex h-auto w-full items-center justify-center overflow-hidden">
+        <div class="hero-video-container h-[450px] w-full">
+            <video class="z-[-1] h-[450px] w-full object-cover" autoplay muted loop>
+                <source src="~/video/hero.mp4" type="video/mp4">
+            </video>
+        </div>
+
+        <!--Quote Container-->
+        <div class="quote-container absolute inset-0 flex flex-col items-center justify-center">
+            <h1 class="mb-3 text-2xl font-bold uppercase text-white md:text-[50px]">Bulky Book Web</h1>
+            <div class="flex w-full flex-col">
+                <h2 class="text-lg font-semibold italic text-white md:text-[30px]">"A book's a man’s best friend. Inside it, he finds a world of imagination, ideas, and advice."</h2>
+                <p class="mt-2 text-sm italic text-white">- William Shakespeare</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Featured Books -->
+	<div class="mt-32 flex h-auto w-full flex-col items-center justify-center gap-2 px-4">
+        <div class="h-auto w-full">
+			<span class="mb-6 text-xl font-bold uppercase">Featured Books</span>
+		</div>
+		<div class="grid-cols-1 grid h-auto w-full place-content-center place-items-center gap-4 sm:grid-cols-2 md:grid-cols-3">
+			@for(int i=0; i<3; i++)
+			{
+				Product product = products[i];
+				<div class="flex w-full flex-col items-center justify-between gap-2 rounded-md border-t-[3px] border-t-gray-800 p-2 shadow-md hover:shadow-lg">
+					<div class="flex w-full flex-col gap-1">
+						<!--Product Image-->
+						<div class="h-[200px] w-full rounded-md">
+							<img src="@Url.Content($"~/{product.ImageUrl}")" action="" alt="Product Image" class="h-full w-full rounded-md object-cover" />
+						</div>
+
+						<!--Product Title-->
+						<span class="w-full p-2 text-center font-semibold uppercase text-blue-900">@product.Title</span>
+
+						<!--Product Author-->
+						<div class="flex w-full items-center justify-center gap-1">
+							<span class="text-yellow-400">By</span>
+							<span class="text-yellow-600">@product.Author</span>
+						</div>
+
+						<!--Product ListPrice-->
+						<div class="flex w-full items-center justify-center gap-1">
+							<span class="">List price:</span>
+							<span class="line-through">@product.ListPrice</span>
+						</div>
+
+						<!--Product 100+ Price-->
+						<div class="flex w-full items-center justify-center gap-1">
+							<span class="">As low as:</span>
+							<span class="">@product.Price100</span>
+						</div>
+					</div>
+
+					<!--Details Link-->
+					<div class="flex h-auto w-full items-center justify-end">
+						<a asp-area="Customer" asp-controller="CustomerProduct" asp-action="ViewProduct" asp-route-id="@product.Id" class="flex w-full items-center justify-center rounded-md bg-gray-800 py-2 uppercase text-white text-[11px] transition-colors duration-300 hover:bg-gray-400">view details</a>
+					</div>
+				</div>
+			}
+		</div>
+		<div class="mt-4 flex w-full items-center justify-end pl-4">
+			<a asp-area="Customer" asp-controller="CustomerProduct" asp-action="Index" class="rounded-md bg-gray-800 px-4 py-2 text-white shadow-md transition-colors duration-300 hover:bg-gray-600">View More</a>
+		</div>
+    </div>
+
+	<!-- News Letter --> 
+    <div class="mt-32 flex h-[250px] w-full flex-col items-center justify-center gap-2 bg-gray-800 py-10">
+        <h2 class="text-lg font-semibold italic text-white md:text-[30px]">"Reading, therefore, is the main instrument of learning."</h2>
+        <p class="mt-2 text-sm italic text-white">- Aristotle</p>
+    </div>
+
+
+    <!-- Best Offers Books -->
+	<div class="mt-32 flex h-auto w-full flex-col gap-2 px-4 md:px-16">
+        <div class="h-auto w-full">
+			<span class="mb-6 text-xl font-bold uppercase">Best Offers</span>
+		</div>
+		<div class="grid-cols-1 grid h-auto w-full gap-4 sm:grid-cols-2 md:grid-cols-3">
+			@for(int i=0; i<3; i++)
+			{
+				Product product = products[i];
+				<div class="flex w-full flex-col items-center justify-between gap-2 rounded-md border-t-[3px] border-t-gray-800 p-2 shadow-md hover:shadow-lg">
+					<div class="flex w-full flex-col gap-1">
+						<!--Product Image-->
+						<div class="h-[200px] w-full rounded-md">
+							<img src="@Url.Content($"~/{product.ImageUrl}")" action="" alt="Product Image" class="h-full w-full rounded-md object-cover" />
+						</div>
+
+						<!--Product Title-->
+						<span class="w-full p-2 text-center font-semibold uppercase text-blue-900">@product.Title</span>
+
+						<!--Product Author-->
+						<div class="flex w-full items-center justify-center gap-1">
+							<span class="text-yellow-400">By</span>
+							<span class="text-yellow-600">@product.Author</span>
+						</div>
+
+						<!--Product ListPrice-->
+						<div class="flex w-full items-center justify-center gap-1">
+							<span class="">List price:</span>
+							<span class="line-through">@product.ListPrice</span>
+						</div>
+
+						<!--Product 100+ Price-->
+						<div class="flex w-full items-center justify-center gap-1">
+							<span class="">As low as:</span>
+							<span class="">@product.Price100</span>
+						</div>
+					</div>
+
+					<!--Details Link-->
+					<div class="flex h-auto w-full items-center justify-end">
+						<a asp-area="Customer" asp-controller="CustomerProduct" asp-action="ViewProduct" asp-route-id="@product.Id" class="flex w-full items-center justify-center rounded-md bg-gray-800 py-2 uppercase text-white text-[11px] transition-colors duration-300 hover:bg-gray-400">view details</a>
+					</div>
+				</div>
+			}
+		</div>
+		<div class="mt-4 flex w-full items-center justify-end pl-4">
+			<a asp-area="Customer" asp-controller="CustomerProduct" asp-action="Index" class="rounded-md bg-gray-800 px-4 py-2 text-white shadow-md transition-colors duration-300 hover:bg-gray-600">View More</a>
+		</div>
+    </div>
+
+    <!-- News Letter --> 
+    <div class="mt-32 bg-gray-800 py-10 text-white">
+        <h2 class="text-center text-3xl font-semibold">Stay Updated!</h2>
+        <p class="mt-2 text-center">Subscribe to our newsletter for the latest updates on new books and offers.</p>
+        <form class="mt-6 flex justify-center">
+            <input type="email" placeholder="Enter your email" class="w-1/3 rounded-l-md p-3 text-gray-800" required>
+            <button type="submit" class="rounded-r-md bg-sky-400 p-3 text-white">Subscribe</button>
+        </form>
+    </div>
+
 </div>

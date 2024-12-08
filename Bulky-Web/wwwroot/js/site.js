@@ -1,21 +1,17 @@
 ﻿document.addEventListener("DOMContentLoaded", function () {
-    // Get the hamburger icon and the mobile menu
+    // Hamburger menu logic (mobile menu)
     const hamburgerIcon = document.getElementById('hamburger-icon');
     const mobileMenu = document.getElementById('mobile-menu');
+    const dropdownButton = document.getElementById('dropdownDefaultButton');
+    const dropdownMenu = document.getElementById('dropdown');
 
-    // Make sure both elements exist before adding event listeners
+    // Hamburger menu toggle
     if (hamburgerIcon && mobileMenu) {
         hamburgerIcon.addEventListener('click', function () {
-            if (mobileMenu.classList.contains('hidden')) {
-                mobileMenu.classList.remove('hidden');
-                mobileMenu.classList.add('flex');
-            } else if (mobileMenu.classList.contains('flex')) {
-                mobileMenu.classList.remove('flex');
-                mobileMenu.classList.add('hidden');
-            }
+            mobileMenu.classList.toggle('hidden');
+            mobileMenu.classList.toggle('flex');
         });
 
-        // Optional: Close the mobile menu if a link inside it is clicked
         const menuLinks = mobileMenu.querySelectorAll('a');
         menuLinks.forEach(link => {
             link.addEventListener('click', function () {
@@ -24,5 +20,22 @@
         });
     } else {
         console.error("Hamburger icon or mobile menu not found.");
+    }
+
+    // Dropdown toggle logic
+    if (dropdownButton && dropdownMenu) {
+        dropdownButton.addEventListener('click', function () {
+            dropdownMenu.classList.toggle('hidden'); // Toggle visibility of dropdown
+        });
+
+        // Optional: Close the dropdown if a link inside it is clicked
+        const dropDownLinks = dropdownMenu.querySelectorAll('a');
+        dropDownLinks.forEach(link => {
+            link.addEventListener('click', function () {
+                dropdownMenu.classList.add('hidden'); // Hide dropdown after link click
+            });
+        });
+    } else {
+        console.error("Dropdown button or dropdown menu not found.");
     }
 });

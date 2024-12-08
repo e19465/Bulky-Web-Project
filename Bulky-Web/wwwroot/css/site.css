@@ -66,3 +66,48 @@ body::after {
 .light-blue-purple-gradient {
     background: var(--BLUE-PURPLE-LAVENDER-GRADIENT);
 }
+
+.hero-video-container {
+    position: relative; /* Ensure the container is positioned */
+}
+
+    .hero-video-container::after {
+        content: "";
+        position: absolute; /* Make it absolute so it covers the container */
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1; /* Ensure it is above the video */
+        background-color: rgba(0, 0, 0, 0.7); /* Adjust the opacity of the overlay */
+        background-blend-mode: overlay;
+    }
+
+    .hero-video-container video {
+        z-index: -1; /* Video should be behind the overlay */
+    }
+
+.quote-container {
+    position: absolute;
+    inset: 0; /* Position in the center of the container */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+    z-index: 2; /* Ensure the quote is on top of the overlay */
+}
+
+    .quote-container p {
+        margin: 0; /* Remove any default margin */
+    }
+
+    .quote-container .text-lg {
+        font-size: 1.25rem; /* Size of the quote text */
+    }
+
+    .quote-container .text-sm {
+        font-size: 0.875rem; /* Size of the author text */
+        margin-top: 0.5rem; /* Space between quote and author */
+    }
