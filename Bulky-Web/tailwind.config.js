@@ -2,7 +2,7 @@ module.exports = {
     content: [
         './Pages/**/*.cshtml',
         './Views/**/*.cshtml',
-        './Areas/**/Views/**/*.cshtml',
+        './Areas/**/**/**/*.cshtml',
         './wwwroot/**/*.html', 
     ],
     theme: {
