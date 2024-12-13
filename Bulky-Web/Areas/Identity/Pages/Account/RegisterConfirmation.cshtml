@@ -8,16 +8,16 @@
 @{
     if (@Model.DisplayConfirmAccountLink)
     {
-<p>
-    This app does not currently have a real email sender registered, see <a href="https://aka.ms/aspaccountconf">these docs</a> for how to configure a real email sender.
-    Normally this would be emailed: <a id="confirm-link" href="@Model.EmailConfirmationUrl">Click here to confirm your account</a>
-</p>
+        <div class="flex h-full w-full flex-col items-center justify-center gap-1 p-12">
+            <p class="text-center text-base">This app does not currently have a real email sender registered</p>
+            <p class="text-center text-sm">see&nbsp;<span><a href="https://aka.ms/aspaccountconf" class="text-blue-500">these docs</a></span>&nbsp;for how to configure a real email sender.</p>
+            <p class="text-center text-sm">Normally this would be emailed</p>
+            <span class="text-center text-base"><a id="confirm-link" href="@Model.EmailConfirmationUrl" class="text-blue-500">Click here to confirm your account</a></span>
+        </div>
     }
     else
     {
-<p>
-        Please check your email to confirm your account.
-</p>
+        <div class="flex h-full w-full items-center justify-center p-12">Please check your email to confirm your account.</div>
     }
 }
 

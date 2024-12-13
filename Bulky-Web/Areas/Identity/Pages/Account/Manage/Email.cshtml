@@ -5,38 +5,48 @@
     ViewData["ActivePage"] = ManageNavPages.Email;
 }
 
-<h3>@ViewData["Title"]</h3>
 <partial name="_StatusMessage" for="StatusMessage" />
-<div class="row">
-    <div class="col-md-6">
-        <form id="email-form" method="post">
-            <div asp-validation-summary="All" class="text-danger" role="alert"></div>
-            @if (Model.IsEmailConfirmed)
-            {
-                <div class="form-floating mb-3 input-group">
-                    <input asp-for="Email" class="form-control" placeholder="Please enter your email." disabled />
-                        <div class="input-group-append">
-                            <span class="h-100 input-group-text text-success font-weight-bold">✓</span>
-                        </div>
-                    <label asp-for="Email" class="form-label"></label>
-                </div>
-            }
-            else
-            {
-                <div class="form-floating mb-3">
-                    <input asp-for="Email" class="form-control" placeholder="Please enter your email." disabled />
-                    <label asp-for="Email" class="form-label"></label>
-                    <button id="email-verification" type="submit" asp-page-handler="SendVerificationEmail" class="btn btn-link">Send verification email</button>
-                </div>
-            }
-            <div class="form-floating mb-3">
-                <input asp-for="Input.NewEmail" class="form-control" autocomplete="email" aria-required="true" placeholder="Please enter new email." />
-                <label asp-for="Input.NewEmail" class="form-label"></label>
-                <span asp-validation-for="Input.NewEmail" class="text-danger"></span>
+
+<div class="flex h-full w-full items-center justify-center">
+    <form id="email-form" method="post" class="flex h-full w-full flex-col items-center justify-center rounded-md border border-gray-300 p-4 shadow-md sm:w-4/5 md:h-auto md:w-3/5">
+
+        <h2 class="mb-4 text-lg font-semibold text-blue-900">Update Your Email</h2>
+        <hr />
+
+        @if (Model.IsEmailConfirmed)
+        {
+            <!-- If email confirmed, show confirmed email -->
+            <div class="mb-3 flex w-full flex-col gap-1">
+                <input asp-for="Email" class="custom-form-input" id="update-email-exists" placeholder="Please enter your email" disabled />
+                <label asp-for="Email" class="custom-form-label">Existing Email</label>
             </div>
-            <button id="change-email-button" type="submit" asp-page-handler="ChangeEmail" class="w-100 btn btn-lg btn-primary">Change email</button>
-        </form>
-    </div>
+        }
+        else
+        {
+            <!-- If email not confirmed, show unconfirmed email -->
+            <div class="mb-3 flex w-full flex-col gap-1">
+                <input asp-for="Email" class="custom-form-input" placeholder="Please enter your email." disabled />
+                <label asp-for="Email" class="custom-form-label">Existing Email (Not Verified)</label>
+            </div>
+
+            <!-- Send email verification button -->
+            <div class="w-full">
+                <button asp-page-handler="SendVerificationEmail" id="prof-send-email-verification" type="submit" class="black-ash-gradient flex h-[40px] w-full items-center justify-center rounded-md text-white shadow-md">Send verification email</button>
+            </div>
+        }
+
+        <!-- Enter new email -->
+        <div class="mb-3 flex w-full flex-col gap-1">
+            <input asp-for="Input.NewEmail" class="custom-form-input" autocomplete="email" aria-required="true" placeholder="Please enter new email" />
+            <label asp-for="Input.NewEmail" class="custom-form-label">New Email</label>
+            <span asp-validation-for="Input.NewEmail" class="custom-form-error"></span>
+        </div>
+
+        <!-- Submit button  -->
+        <div class="w-full">
+            <button asp-page-handler="ChangeEmail" id="change-email-button" type="submit" class="black-ash-gradient custom-submit-button">Change email</button>
+        </div>
+    </form>
 </div>
 
 @section Scripts {

@@ -99,15 +99,66 @@ body::after {
     z-index: 2; /* Ensure the quote is on top of the overlay */
 }
 
-    .quote-container p {
-        margin: 0; /* Remove any default margin */
-    }
+.quote-container p {
+    margin: 0; /* Remove any default margin */
+}
 
-    .quote-container .text-lg {
-        font-size: 1.25rem; /* Size of the quote text */
-    }
+.quote-container .text-lg {
+    font-size: 1.25rem; /* Size of the quote text */
+}
 
-    .quote-container .text-sm {
-        font-size: 0.875rem; /* Size of the author text */
-        margin-top: 0.5rem; /* Space between quote and author */
-    }
+.quote-container .text-sm {
+    font-size: 0.875rem; /* Size of the author text */
+    margin-top: 0.5rem; /* Space between quote and author */
+}
+
+
+.active-sidebar-link-profile {
+    border-radius: 10px;
+    background-color: #000;
+    color: #fff;
+}
+
+.active-sidebar-link-profile:hover {
+    background-color: #000;
+    color: #fff !important;
+}
+
+
+/* CLASSES FOR FORMS */
+.custom-form-input {
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    padding: 0.5rem;
+    font-size: 1rem;
+    outline: none;
+    transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.custom-form-input:focus {
+    border-color: #93c5fd;
+    box-shadow: 0 0 0 2px #93c5fd;
+}
+
+.custom-form-label {
+    margin-left: 1rem;
+    font-size: 0.875rem;
+    color: #3b82f6;
+}
+
+.custom-form-error {
+    margin-left: 1rem;
+    font-size: 0.875rem;
+    color: #ef4444;
+}
+
+.custom-submit-button {
+    display: flex;
+    height: 40px;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.375rem;
+    color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}

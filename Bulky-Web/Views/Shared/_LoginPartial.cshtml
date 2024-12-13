@@ -6,22 +6,22 @@
 <div class="">
 @if (SignInManager.IsSignedIn(User))
 {
-        <div class="flex flex-col items-center justify-center gap-2 md:gap-3 md:flex-row">
+        <div class="flex flex-col items-center justify-center gap-2 text-sm md:gap-5 md:flex-row md:uppercase md:tracking-[2px]">
             <span class="py-2">
-                <a id="manage" class="text-white" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
+                <a id="manage" class="text-blue-400 hover:text-blue-500" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Profile</a>
             </span>
-            <span class="py-2 text-white">
+            <span class="py-2 text-gray-400 md:text-white">
                 <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                    <button id="logout" type="submit" class="">Logout</button>
+                    <button id="logout" type="submit" class="md:uppercase">Logout</button>
                 </form>
             </span>
         </div>
 }
 else
 {
-        <div class="flex flex-col items-center justify-center gap-2 md:gap-3 md:flex-row">
-            <a class="py-2 text-white" id="register" asp-area="Identity" asp-page="/Account/Register">Register</a>
-            <a class="py-2 text-white" id="login" asp-area="Identity" asp-page="/Account/Login">Login</a>
+        <div class="flex flex-col items-center justify-center gap-2 text-sm md:gap-5 md:flex-row md:uppercase md:tracking-[2px]">
+            <a class="py-2 text-gray-400 hover:text-blue-100 md:text-white" id="register" asp-area="Identity" asp-page="/Account/Register">Register</a>
+            <a class="py-2 text-gray-400 hover:text-blue-100 md:text-white md:uppercase" id="login" asp-area="Identity" asp-page="/Account/Login">Login</a>
         </div>
 }
 </div>

@@ -4,5 +4,10 @@
     ViewData["Title"] = "Confirm email";
 }
 
-<h1>@ViewData["Title"]</h1>
-<partial name="_StatusMessage" model="Model.StatusMessage" />
+<div class="itams-center flex h-full w-full flex-col justify-center">
+    <partial name="_StatusMessage" model="Model.StatusMessage" />
+    <div class="flex-1 flex w-full flex-col items-center justify-center gap-2">
+        <p class="text-center text-lg">Your email has been verified</p>
+        <a href="/Identity/Account/Login" class="rounded-md border-blue-500 bg-sky-700 px-12 py-4 text-white">Back to Login</a>
+    </div>
+</div>

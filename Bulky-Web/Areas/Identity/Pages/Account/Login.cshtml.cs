@@ -64,15 +64,15 @@ namespace Bulky_Web.Areas.Identity.Pages.Account
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
-            [Required]
-            [EmailAddress]
+            [Required (ErrorMessage = "Email is required")]
+            [EmailAddress (ErrorMessage = "Invalid Email Address")]
             public string Email { get; set; }
 
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
-            [Required]
+            [Required (ErrorMessage = "Password is required")]
             [DataType(DataType.Password)]
             public string Password { get; set; }
 
@@ -114,6 +114,7 @@ namespace Bulky_Web.Areas.Identity.Pages.Account
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
+                    TempData["success"] = "Login successful";
                     _logger.LogInformation("User logged in.");
                     return LocalRedirect(returnUrl);
                 }

@@ -1,15 +1,35 @@
 ﻿@inject SignInManager<IdentityUser> SignInManager
+
+
 @{
     var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
-}
-<ul class="nav nav-pills flex-column">
-    <li class="nav-item"><a class="nav-link @ManageNavPages.IndexNavClass(ViewContext)" id="profile" asp-page="./Index">Profile</a></li>
-    <li class="nav-item"><a class="nav-link @ManageNavPages.EmailNavClass(ViewContext)" id="email" asp-page="./Email">Email</a></li>
-    <li class="nav-item"><a class="nav-link @ManageNavPages.ChangePasswordNavClass(ViewContext)" id="change-password" asp-page="./ChangePassword">Password</a></li>
-    @if (hasExternalLogins)
+    var sidebarLinks = new[]
     {
-        <li id="external-logins" class="nav-item"><a id="external-login" class="nav-link @ManageNavPages.ExternalLoginsNavClass(ViewContext)" asp-page="./ExternalLogins">External logins</a></li>
+        new {Id = "profile", AspPage = "Index", Name = "Profile", NavClass  = @ManageNavPages.IndexNavClass(ViewContext)},
+        
+        new {Id = "email", AspPage = "Email", Name = "Email", NavClass  = @ManageNavPages.EmailNavClass(ViewContext)},
+        
+        new {Id = "change-password", AspPage = "ChangePassword", Name = "Password", NavClass  = @ManageNavPages.ChangePasswordNavClass(ViewContext)},
+        
+        new {Id = "external-logins", AspPage = "ExternalLogins", Name = "External logins", NavClass  = @ManageNavPages.ExternalLoginsNavClass(ViewContext)},
+        
+        new {Id = "two-factor", AspPage = "TwoFactorAuthentication", Name = "2FA", NavClass  = @ManageNavPages.TwoFactorAuthenticationNavClass(ViewContext)},
+
+        new {Id = "personal-data", AspPage = "PersonalData", Name = "Personal", NavClass  = @ManageNavPages.PersonalDataNavClass(ViewContext)},
+    };
+}
+
+
+<ul class="flex h-full w-full flex-col overflow-y-auto overflow-x-hidden p-2">
+    @foreach (var link in sidebarLinks)
+    {
+        @if (link.Id == "external-logins" && !hasExternalLogins)
+        {
+            continue;
+        }
+        else
+        {
+            <li class="w-full"><a class="tracking-[2px] flex w-full items-center justify-center py-2 font-semibold uppercase text-[11px] hover:text-black @link.NavClass" id="@link.Id" asp-page="./@link.AspPage">@link.Name</a></li>
+        }
     }
-    <li class="nav-item"><a class="nav-link @ManageNavPages.TwoFactorAuthenticationNavClass(ViewContext)" id="two-factor" asp-page="./TwoFactorAuthentication">Two-factor authentication</a></li>
-    <li class="nav-item"><a class="nav-link @ManageNavPages.PersonalDataNavClass(ViewContext)" id="personal-data" asp-page="./PersonalData">Personal data</a></li>
 </ul>
