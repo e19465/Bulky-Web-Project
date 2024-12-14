@@ -10,11 +10,16 @@
 }
 
 <div class="flex h-full w-full overflow-x-hidden">
-    <div class="hidden h-full w-1/5 bg-gray-400 md:block">
+    <div class="hidden h-full w-1/5 md:block">
         <partial name="_ManageNav" />
     </div>
-    <div class="box-border h-full flex-grow">
-        @RenderBody()
+    <div class="relative box-border h-full flex-grow overflow-y-auto">
+        <div class="z-[10] sticky top-0 flex h-auto w-full md:hidden">
+            <partial name="_ManageNav" />
+        </div>
+        <div class="h-full min-h-full w-full">
+            @RenderBody()
+        </div>
     </div>
 </div>
 
