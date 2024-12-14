@@ -5,8 +5,8 @@
 }
 
 
-<div class="flex h-full w-full items-center justify-center">
-    <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="flex h-full w-full flex-col items-center justify-center rounded-md border border-gray-300 p-4 shadow-md sm:w-4/5 md:h-auto md:w-3/5 lg:w-2/5 xl:w-[30%]">
+<div class="flex min-h-screen w-full items-center justify-center p-8">
+    <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="flex h-auto w-full flex-col items-center justify-center rounded-md border border-gray-300 p-4 shadow-md sm:w-4/5 md:h-auto md:w-3/5 lg:w-2/5 xl:w-[30%]">
         
         <h2 class="mb-4 text-lg font-semibold text-blue-900">Sign up to Bulky Book Web</h2>
         <hr />
@@ -16,6 +16,48 @@
             <input asp-for="Input.Email" class="custom-form-input" autocomplete="username" aria-required="true" placeholder="name@example.com" />
             <label asp-for="Input.Email" class="custom-form-label">Email</label>
             <span asp-validation-for="Input.Email" class="custom-form-error"></span>
+        </div>
+
+        <!-- Name input -->
+        <div class="mb-3 flex w-full flex-col gap-1">
+            <input asp-for="Input.Name" class="custom-form-input" autocomplete="username" placeholder="John Doe" />
+            <label asp-for="Input.Name" class="custom-form-label">Name</label>
+            <span asp-validation-for="Input.Name" class="custom-form-error"></span>
+        </div>
+
+        <!-- State input -->
+        <div class="mb-3 flex w-full flex-col gap-1">
+            <input asp-for="Input.State" class="custom-form-input" placeholder="Your state" />
+            <label asp-for="Input.State" class="custom-form-label">State</label>
+            <span asp-validation-for="Input.State" class="custom-form-error"></span>
+        </div>
+
+        <!-- City input -->
+        <div class="mb-3 flex w-full flex-col gap-1">
+            <input asp-for="Input.City" class="custom-form-input" placeholder="Your city" />
+            <label asp-for="Input.City" class="custom-form-label">City</label>
+            <span asp-validation-for="Input.City" class="custom-form-error"></span>
+        </div>
+
+        <!-- Postal Code input -->
+        <div class="mb-3 flex w-full flex-col gap-1">
+            <input type="number" asp-for="Input.PostalCode" class="custom-form-input" placeholder="Your postal code" />
+            <label asp-for="Input.PostalCode" class="custom-form-label">Postal Code</label>
+            <span asp-validation-for="Input.PostalCode" class="custom-form-error"></span>
+        </div>
+
+        <!-- Address input -->
+        <div class="mb-3 flex w-full flex-col gap-1">
+            <textarea asp-for="Input.StreetAddress" class="custom-form-input" placeholder="Your address"></textarea>
+            <label asp-for="Input.StreetAddress" class="custom-form-label">Address</label>
+            <span asp-validation-for="Input.StreetAddress" class="custom-form-error"></span>
+        </div>
+
+        <!-- Role input -->
+        <div class="mb-3 flex w-full flex-col gap-1">
+            <select asp-for="Input.Role" class="custom-form-input" asp-items="@Model.Input.Roles">
+                <option disabled selected class="text-center">-- Select Role --</option>
+            </select>
         </div>
 
 

@@ -4,7 +4,8 @@
     ViewData["Title"] = "Access denied";
 }
 
-<header>
-    <h1 class="text-danger">@ViewData["Title"]</h1>
-    <p class="text-danger">You do not have access to this resource.</p>
-</header>
+<div class="flex h-full w-full flex-col items-center justify-center gap-2">
+    <h1 class="text-lg font-semibold text-red-500">Access Denied!</h1>
+    <p class="text-center text-base">You don't have access to this resource</p>
+    <a href="/" class="rounded-md bg-blue-900 px-4 py-2 text-sm text-white shadow-md">Back to Home</a>
+</div>

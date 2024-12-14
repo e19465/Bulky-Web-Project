@@ -56,35 +56,41 @@
                         <a asp-area="@navLink.Area" asp-controller="@navLink.Controller" asp-action="@navLink.ActionName" class="text-gray-400 hover:text-gray-100">@navLink.Name</a>
                     }
                 </div>
-                <!--Drop down menu container-->
-                <div class="relative w-auto text-[12px]">
 
-                    <!-- Dropdown button -->
-                    <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown"
-                            class="tracking-[2px] hidden items-center justify-center gap-2 bg-transparent font-semibold uppercase text-gray-400 text-[12px] transition-colors duration-300 hover:text-gray-100 md:flex" type="button">
-                        <span>management</span>
-                        <i class="fas fa-caret-down"></i>
-                    </button>
+                <!-- Dropdown menu only visible to admin -->
+                @if (User.IsInRole(UserRoles.Role_Admin))
+                {
+                    <!--Drop down menu container-->
+                    <div class="relative w-auto text-[12px]">
 
-                    <!-- Dropdown menu -->
-                    <div id="dropdown" class="z-100 absolute left-0 top-full mt-2 hidden w-[200px] divide-y divide-gray-100 rounded-lg border border-gray-800 bg-gray-200 shadow-md shadow-gray-800">
-                        <ul class="p-2 text-gray-800" aria-labelledby="dropdownDefaultButton">
+                        <!-- Dropdown button -->
+                        <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown"
+                                class="tracking-[2px] hidden items-center justify-center gap-2 bg-transparent font-semibold uppercase text-gray-400 text-[12px] transition-colors duration-300 hover:text-gray-100 md:flex" type="button">
+                            <span>management</span>
+                            <i class="fas fa-caret-down"></i>
+                        </button>
 
-                            @foreach (var dropDownLink in dropDownLinks)
-                            {
-                                <li class="flex w-full items-center justify-center rounded-none border-b border-b-gray-800 hover:rounded-md hover:bg-gray-800">
-                                    <a class="flex w-full items-center justify-center py-2 text-gray-800 hover:text-gray-100"
-                                       asp-area="@dropDownLink.Area"
-                                       asp-controller="@dropDownLink.Controller"
-                                       asp-action="@dropDownLink.ActionName">
-                                        @dropDownLink.Name
-                                    </a>
-                                </li>
-                            }
+                        <!-- Dropdown menu -->
+                        <div id="dropdown" class="z-100 absolute left-0 top-full mt-2 hidden w-[200px] divide-y divide-gray-100 rounded-lg border border-gray-800 bg-gray-200 shadow-md shadow-gray-800">
+                            <ul class="p-2 text-gray-800" aria-labelledby="dropdownDefaultButton">
 
-                        </ul>
+                                @foreach (var dropDownLink in dropDownLinks)
+                                {
+                                    <li class="flex w-full items-center justify-center rounded-none border-b border-b-gray-800 hover:rounded-md hover:bg-gray-800">
+                                        <a class="flex w-full items-center justify-center py-2 text-gray-800 hover:text-gray-100"
+                                           asp-area="@dropDownLink.Area"
+                                           asp-controller="@dropDownLink.Controller"
+                                           asp-action="@dropDownLink.ActionName">
+                                            @dropDownLink.Name
+                                        </a>
+                                    </li>
+                                }
+
+                            </ul>
+                        </div>
                     </div>
-                </div>
+                }
+                
             </div>
             <div class="hidden md:flex">
                 <partial name="_LoginPartial" />

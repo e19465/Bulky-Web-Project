@@ -1,11 +1,14 @@
 ﻿
 using Bulky.DataAccess.Repository.IRepository;
 using Bulky.Models;
+using Bulky_Web.Config;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Bulky_Web.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize (Roles = UserRoles.Role_Admin)]
     public class CategoryController : Controller
     {
         private readonly ICategoryRepository _categoryRepository;

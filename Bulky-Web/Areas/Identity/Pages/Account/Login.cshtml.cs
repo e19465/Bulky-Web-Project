@@ -124,11 +124,13 @@ namespace Bulky_Web.Areas.Identity.Pages.Account
                 }
                 if (result.IsLockedOut)
                 {
+                    TempData["error"] = "User account locked out.";
                     _logger.LogWarning("User account locked out.");
                     return RedirectToPage("./Lockout");
                 }
                 else
                 {
+                    TempData["error"] = "Invalid Credentials";
                     ModelState.AddModelError(string.Empty, "Invalid login attempt.");
                     return Page();
                 }

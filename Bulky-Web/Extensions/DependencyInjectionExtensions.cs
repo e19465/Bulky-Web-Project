@@ -1,6 +1,7 @@
 ﻿using Bulky.DataAccess.Repository;
 using Bulky.DataAccess.Repository.IRepository;
 using Bulky_Web.helpers;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace Bulky_Web.Extensions
 {
@@ -12,6 +13,7 @@ namespace Bulky_Web.Extensions
 			services.AddScoped<IProductRepository, ProductRepository>();
 			services.AddScoped<FileUploadService>();
 			services.AddScoped<ArrangeQueryIncludeTypes>();
+			services.AddScoped<IEmailSender, EmailSender>();
             return services;
 
 		}
