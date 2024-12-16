@@ -18,7 +18,7 @@
 
 - **ASP.NET Core 8 MVC**
 - **Entity Framework Core**
-- **SQL Server (or your choice of DBMS)**
+- **SQL Server**
 - **Tailwind CSS** for modern and responsive styling
 - **Role-based Authentication** for managing user permissions
 - **Identity Framework** for managing users and roles
